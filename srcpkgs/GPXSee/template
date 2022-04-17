@@ -1,0 +1,14 @@
+# Template file for 'GPXSee'
+pkgname=GPXSee
+version=10.6
+revision=1
+build_style=qmake
+hostmakedepends="qt5-qmake qt5-host-tools"
+makedepends="qt5-tools-devel qt5-location-devel"
+depends="qt5-imageformats qt5-location"
+short_desc="GPS log file viewer and analyzer"
+maintainer="ghost <gh0st@vivaldi.net>"
+license="GPL-3.0-only"
+homepage="https://www.gpxsee.org/"
+distfiles="https://github.com/tumic0/${pkgname}/archive/${version}.tar.gz"
+checksum=e686ed1c2bdd236d96c6dece5274802739cf8a3f1910fc3ba0486a62e937fc27
