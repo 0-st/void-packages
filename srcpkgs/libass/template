@@ -1,20 +1,26 @@
 # Template file for 'libass'
 pkgname=libass
-version=0.15.2
+version=0.17.1
 revision=1
 build_style=gnu-configure
-hostmakedepends="automake libtool yasm pkg-config"
+hostmakedepends="automake libtool pkg-config"
 makedepends="enca-devel fontconfig-devel fribidi-devel harfbuzz-devel"
 short_desc="Portable library for SSA/ASS subtitles rendering"
-maintainer="Orphaned <orphan@voidlinux.org>"
+maintainer="Mohammed Anas <triallax@tutanota.com>"
 license="MIT"
 homepage="https://github.com/libass/libass/"
+changelog="https://raw.githubusercontent.com/libass/libass/master/Changelog"
 distfiles="https://github.com/libass/libass/archive/${version}.tar.gz"
-checksum=f96b7ce35f2b0bf430eb71c4c9dd5d8f0abf52499e08490d346608c837c98299
+checksum=5ba42655d7e8c5e87bba3ffc8a2b1bc19c29904240126bb0d4b924f39429219f
+
+case "$XBPS_TARGET_MACHINE" in
+	i686* | x86_64*) hostmakedepends+=" nasm"
+esac
 
 pre_configure() {
 	autoreconf -fi
 }
+
 post_install() {
 	vlicense COPYING
 }
@@ -25,7 +31,7 @@ libass-devel_package() {
 	pkg_install() {
 		vmove usr/include
 		vmove usr/lib/pkgconfig
-		vmove usr/lib/*.a
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
 	}
 }

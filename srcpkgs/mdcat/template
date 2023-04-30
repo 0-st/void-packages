@@ -1,8 +1,7 @@
 # Template file for 'mdcat'
 pkgname=mdcat
-version=0.27.1
+version=2.0.3
 revision=1
-wrksrc="${pkgname}"
 build_style=cargo
 hostmakedepends="pkg-config ruby-asciidoctor"
 makedepends="openssl-devel"
@@ -11,10 +10,11 @@ checkdepends="shared-mime-info"
 short_desc="Cat for markdown"
 maintainer="cinerea0 <cinerea0@protonmail.com>"
 license="MPL-2.0"
-homepage="https://codeberg.org/flausch/mdcat/"
-changelog="https://codeberg.org/flausch/mdcat/raw/branch/main/CHANGELOG.md"
-distfiles="https://codeberg.org/flausch/mdcat/archive/mdcat-${version}.tar.gz"
-checksum=79961e0a842ee0f68aee3d54b39458352664c67388e56175a9d18d80f357bf14
+homepage="https://github.com/swsnr/mdcat"
+changelog="https://raw.githubusercontent.com/swsnr/mdcat/main/CHANGELOG.md"
+distfiles="https://github.com/swsnr/mdcat/archive/refs/tags/mdcat-${version}.tar.gz"
+checksum=18003b2fbbbd8e4d0c19826aa180c8e432a2fed391a398d4a8ae4f118d4b3010
+make_check=ci-skip  # uses network tests which fail in CI
 
 case "$XBPS_TARGET_MACHINE" in
 	x86_64*|i686*|arm*|aarch64*) ;;
@@ -31,4 +31,5 @@ post_install() {
 
 	man_page=$(find ${wrksrc}/target -name mdcat.1 -print -quit)
 	vman ${man_page}
+	ln -sf /usr/bin/mdcat ${DESTDIR}/usr/bin/mdless
 }

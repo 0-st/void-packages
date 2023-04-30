@@ -1,6 +1,6 @@
 # Template file for 'libspectre'
 pkgname=libspectre
-version=0.2.9
+version=0.2.11
 revision=2
 build_style=gnu-configure
 configure_args="--disable-static"
@@ -10,7 +10,7 @@ maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="https://www.freedesktop.org/wiki/Software/libspectre/"
 distfiles="http://libspectre.freedesktop.org/releases/${pkgname}-${version}.tar.gz"
-checksum=49ae9c52b5af81b405455c19fe24089d701761da2c45d22164a99576ceedfbed
+checksum=79d44d65f835c5114592b60355d2fce117bace5c47a62fc63a07f10f133bd49c
 
 libspectre-devel_package() {
 	depends="${sourcepkg}>=${version}_${revision}"

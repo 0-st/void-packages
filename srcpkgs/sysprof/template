@@ -1,26 +1,25 @@
 # Template file for 'sysprof'
 pkgname=sysprof
-version=3.42.1
-revision=1
+version=3.46.0
+revision=2
 build_style=meson
-configure_args="-Denable_gtk=true -Dsystemdunitdir=deleteme"
-hostmakedepends="gettext pkg-config itstool glib-devel"
-makedepends="gtk+3-devel libdazzle-devel polkit-devel glib-devel elogind-devel json-glib-devel"
+configure_args="-Dgtk=true -Dsystemdunitdir=/usr/lib/systemd"
+hostmakedepends="gettext pkg-config itstool glib-devel desktop-file-utils
+ gtk-update-icon-cache"
+makedepends="gtk4-devel libdazzle-devel polkit-devel glib-devel elogind-devel
+ json-glib-devel libunwind-devel libadwaita-devel"
 short_desc="System-wide profiler for Linux"
 maintainer="Enno Boland <gottox@voidlinux.org>"
 license="GPL-2.0-or-later, GPL-3.0-or-later"
 homepage="https://gitlab.gnome.org/GNOME/sysprof"
-distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=1796b81404ee75fd1ebacf54464ad7affebf62f2851eef524d9f8eac0c4a2001
+changelog="https://gitlab.gnome.org/GNOME/sysprof/-/raw/master/NEWS"
+distfiles="${GNOME_SITE}/sysprof/${version%.*}/sysprof-${version}.tar.xz"
+checksum=3e430d578150a8dd0b075b17d2fcc1ba704d42880262f0cc651f33e493be4071
 
 # for ITS rules
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" polkit-devel"
 fi
-
-post_install() {
-	rm -rf ${DESTDIR}/usr/deleteme
-}
 
 sysprof-devel_package() {
 	depends="${sourcepkg}>=${version}_${revision} libglib-devel

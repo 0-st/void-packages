@@ -147,6 +147,23 @@ msg_normal() {
     fi
 }
 
+report_broken() {
+    if [ "$show_problems" = "ignore-problems" ]; then
+        return
+    fi
+    if [ -z "$XBPS_IGNORE_BROKENNESS" ]; then
+        for line in "$@"; do
+            msg_red "$line"
+        done
+        exit 2
+    elif [ "$XBPS_IGNORE_BROKENNESS" != reported ]; then
+        for line in "$@"; do
+            msg_warn "$line"
+        done
+        XBPS_IGNORE_BROKENNESS=reported
+    fi
+}
+
 msg_normal_append() {
     [ -n "$NOCOLORS" ] || printf "\033[1m"
     printf "$@"
@@ -398,7 +415,7 @@ setup_pkg() {
     done
 
     if [ ! -f ${XBPS_SRCPKGDIR}/${basepkg}/template ]; then
-        msg_error "xbps-src: unexistent file: ${XBPS_SRCPKGDIR}/${basepkg}/template\n"
+        msg_error "xbps-src: nonexistent file: ${XBPS_SRCPKGDIR}/${basepkg}/template\n"
     fi
     if [ -n "$cross" ]; then
         export CROSS_BUILD="$cross"
@@ -460,12 +477,17 @@ setup_pkg() {
         fi
     fi
 
+    for x in ${hostmakedepends} ${makedepends} ${checkdepends}; do
+        if [[ $x = *[\<\>]* || $x =~ -[^-_]*[0-9][^-_]*_[0-9_]+$ ]]; then
+            msg_error "$pkgver: specifying version in build dependency '$x' is invalid, template version is used always\n"
+        fi
+    done
+
     FILESDIR=$XBPS_SRCPKGDIR/$sourcepkg/files
     PATCHESDIR=$XBPS_SRCPKGDIR/$sourcepkg/patches
     DESTDIR=$XBPS_DESTDIR/$XBPS_CROSS_TRIPLET/${sourcepkg}-${version}
     PKGDESTDIR=$XBPS_DESTDIR/$XBPS_CROSS_TRIPLET/${pkg}-${version}
 
-    : ${XBPS_MAKEJOBS:=1}
     export XBPS_ORIG_MAKEJOBS=${XBPS_ORIG_MAKEJOBS:=$XBPS_MAKEJOBS}
     if [ -n "$disable_parallel_build" ]; then
         XBPS_MAKEJOBS=1
@@ -638,20 +660,16 @@ setup_pkg() {
     fi
 
     # Setup some specific package vars.
-    if [ -z "$wrksrc" ]; then
-        wrksrc="$XBPS_BUILDDIR/${sourcepkg}-${version}"
-    else
-        wrksrc="$XBPS_BUILDDIR/$wrksrc"
-    fi
+    wrksrc="$XBPS_BUILDDIR/${sourcepkg}-${version}"
 
-    if [ "$cross" -a "$nocross" -a "$show_problems" != "ignore-problems" ]; then
-        msg_red "$pkgver: cannot be cross compiled, exiting...\n"
-        msg_red "$pkgver: $nocross\n"
-        exit 2
-    elif [ "$broken" -a "$show_problems" != "ignore-problems" ]; then
-        msg_red "$pkgver: cannot be built, it's currently broken; see the build log:\n"
-        msg_red "$pkgver: $broken\n"
-        exit 2
+    if [ "$cross" -a "$nocross" ]; then
+        report_broken \
+            "$pkgver: cannot be cross compiled...\n" \
+            "$pkgver: $nocross\n"
+    elif [ "$broken" ]; then
+        report_broken \
+            "$pkgver: cannot be built, it's currently broken; see the build log:\n" \
+            "$pkgver: $broken\n"
     fi
 
     if [ -n "$restricted" -a -z "$XBPS_ALLOW_RESTRICTED" -a "$show_problems" != "ignore-problems" ]; then

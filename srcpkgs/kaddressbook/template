@@ -1,6 +1,6 @@
 # Template file for 'kaddressbook'
 pkgname=kaddressbook
-version=21.12.3
+version=23.04.0
 revision=1
 build_style=cmake
 configure_args="-DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson"
@@ -13,7 +13,7 @@ maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="https://kde.org/applications/en/office/org.kde.kaddressbook"
 distfiles="${KDE_SITE}/release-service/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=ad02369e61e42b32cd8a302e6510cffb99a20115a83412389e81a6e49b03f8c3
+checksum=3c91736c0d98a5df94031b080d6c2b4efabf16123a533e5dcc98f31d74c0c96c
 
 kaddressbook-devel_package() {
 	depends="${sourcepkg}>=${version}_${revision}"

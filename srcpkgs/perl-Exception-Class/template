@@ -2,13 +2,12 @@
 pkgname=perl-Exception-Class
 version=1.45
 revision=1
-wrksrc="${pkgname#*-}-${version}"
 build_style=perl-module
 hostmakedepends="perl-Class-Data-Inheritable perl-Devel-StackTrace"
 makedepends="${hostmakedepends}"
 depends="${hostmakedepends}"
 short_desc='Allows you to declare real exception classes'
-maintainer="Enguerrand de Rochefort <voidlinux@rochefort.de>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="Artistic-1.0-Perl, GPL-1.0-or-later"
 homepage="https://metacpan.org/release/Exception-Class"
 distfiles="$CPAN_SITE/Exception/Exception-Class-${version}.tar.gz"

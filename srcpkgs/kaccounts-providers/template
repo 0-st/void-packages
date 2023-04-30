@@ -1,6 +1,6 @@
 # Template file for 'kaccounts-providers'
 pkgname=kaccounts-providers
-version=22.04.0
+version=23.04.0
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules intltool qt5-qmake qt5-host-tools
@@ -10,10 +10,10 @@ makedepends="kparts-devel kaccounts-integration-devel glib-devel
 short_desc="KDE Accounts Providers"
 maintainer="Piotr Wójcik <chocimier@tlen.pl>"
 license="GPL-2.0-or-later"
-homepage="https://cgit.kde.org/kaccounts-providers.git/"
+homepage="https://invent.kde.org/network/kaccounts-providers"
 changelog="https://kde.org/announcements/changelogs/gear/${version}/#kaccounts-providers"
 distfiles="${KDE_SITE}/release-service/${version}/src/kaccounts-providers-${version}.tar.xz"
-checksum=297a55bcfa26379e9501b70f17da238a4ae23fd908b3afaa0052853a1cca0e34
+checksum=cf37813acf5b1895d5a6d2315c60f186ccd7b798ef7bb3b0ad98bd6e29547b1e
 
 build_options="nextcloud"
 desc_option_nextcloud="Build nextcloud support (needs Qt5 WebEngine)"
@@ -27,10 +27,3 @@ fi
 if [ "$build_option_nextcloud" ]; then
 	makedepends+=" qt5-webchannel-devel qt5-webengine-devel"
 fi
-
-post_extract() {
-	if [ -z "$build_option_nextcloud" ]; then
-		vsed -i '/find_package/s/ WebEngine//' CMakeLists.txt
-		vsed -i '/nextcloud-ui/d' plugins/CMakeLists.txt
-	fi
-}

@@ -1,15 +1,15 @@
 # Template file for 'hopper'
 pkgname=hopper
-version=4.9.5
+version=5.9.0
 revision=1
 _build=1
 create_wrksrc=yes
-short_desc="MacOS and Linux Disassembler "
+short_desc="MacOS and Linux Disassembler"
 maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="custom:EULA"
 homepage="https://www.hopperapp.com"
-distfiles="https://d2ap6ypl1xbe4k.cloudfront.net/Hopper-v4-${version}-Linux.pkg.tar.xz"
-checksum=2ae6c31282b14dd7f41ea0d06cbc199259f6ef7762d080b789f9ee093fa89981
+distfiles="https://d2ap6ypl1xbe4k.cloudfront.net/Hopper-v4-${version}-Linux-demo.pkg.tar.xz"
+checksum=44ca1be9d37ab1dc42357f2af4698f3fd7e8a11b71123c7f9552c02a6a14266e
 
 archs="x86_64"
 restricted=yes

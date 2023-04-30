@@ -3,13 +3,12 @@ pkgname=perl-X11-Protocol
 #TODO
 version=0.56
 revision=3
-wrksrc="${pkgname#*-}-${version}"
 build_style=perl-module
 hostmakedepends="perl"
 makedepends="perl"
 depends="perl"
 short_desc='X11::Protocol - Rough equivalent of Xlib'
-maintainer="Enguerrand de Rochefort <voidlinux@rochefort.de>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="Artistic-1.0-Perl, GPL-1.0-or-later"
 homepage="https://metacpan.org/release/X11-Protocol"
 distfiles="$CPAN_SITE/X11/X11-Protocol-${version}.tar.gz"

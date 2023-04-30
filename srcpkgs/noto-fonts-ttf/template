@@ -1,40 +1,36 @@
 # Template file for 'noto-fonts-ttf'
 pkgname=noto-fonts-ttf
-version=20190926
-revision=2
-_githash=0fa1dfabd6e3746bb7463399e2813f60d3f1b256
-wrksrc="noto-fonts-${_githash}"
+reverts="20220810_1 20190926_2 20190926_1 20181202_1 20181106_1"
+version=23.4.1
+revision=1
 depends="font-util"
 short_desc="Google Noto TTF Fonts"
-maintainer="Peter Bui <pbui@github.bx612.space>"
+maintainer="classabbyamp <void@placeviolette.net>"
 license="OFL-1.1"
-homepage="https://www.google.com/get/noto/"
-distfiles="https://codeload.github.com/googlefonts/noto-fonts/tar.gz/${_githash}>${pkgname}-${version}.tar.gz"
-checksum=6ca2938b99e4316c6eabdab498f577efb979c4f2aeaf5a3a357ab4e3dcc2c2a5
+homepage="https://notofonts.github.io/"
+distfiles="https://github.com/notofonts/notofonts.github.io/archive/refs/tags/noto-monthly-release-${version}.tar.gz"
+checksum=e80c936d78caf063db5cbb1c1625ffbd43a94de2491a0f02eaa18c116fca133b
 font_dirs="/usr/share/fonts/noto"
 
 do_install() {
-	install -Dm644 hinted/Noto*/* -t ${DESTDIR}/usr/share/fonts/noto
-	install -Dm644 unhinted/Noto*/* -t ${DESTDIR}/usr/share/fonts/noto
-	vlicense LICENSE
+	vlicense fonts/LICENSE
+	vmkdir usr/share/fonts/noto
+	vcopy "fonts/Noto*/hinted/ttf/*.ttf" usr/share/fonts/noto
 }
 
 noto-fonts-ttf-extra_package() {
 	depends="${sourcepkg}>=${version}_${revision}"
 	short_desc+=" - additional variants"
 	pkg_install() {
-		vmove usr/share/fonts/noto/Noto*-ExtraCondensed*.ttf
-		vmove usr/share/fonts/noto/Noto*-Condensed*.ttf
-		vmove usr/share/fonts/noto/Noto*-SemiCondensed*.ttf
+		vmove "usr/share/fonts/noto/Noto*-*Condensed*.ttf"
 
-		vmove usr/share/fonts/noto/Noto*-Thin*.ttf
-		vmove usr/share/fonts/noto/Noto*-ExtraLight*.ttf
-		vmove usr/share/fonts/noto/Noto*-Light*.ttf
+		vmove "usr/share/fonts/noto/Noto*-*Thin*.ttf"
+		vmove "usr/share/fonts/noto/Noto*-*Light*.ttf"
 		# keep *-Regular*
-		vmove usr/share/fonts/noto/Noto*-Medium*.ttf
-		vmove usr/share/fonts/noto/Noto*-SemiBold*.ttf
+		vmove "usr/share/fonts/noto/Noto*-*Medium*.ttf"
+		vmove "usr/share/fonts/noto/Noto*-*SemiBold*.ttf"
 		# keep *-Bold*
-		vmove usr/share/fonts/noto/Noto*-ExtraBold*.ttf
-		vmove usr/share/fonts/noto/Noto*-Black*.ttf
+		vmove "usr/share/fonts/noto/Noto*-*ExtraBold*.ttf"
+		vmove "usr/share/fonts/noto/Noto*-*Black*.ttf"
 	}
 }

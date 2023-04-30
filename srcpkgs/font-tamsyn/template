@@ -2,10 +2,9 @@
 pkgname=font-tamsyn
 version=1.11
 revision=3
-wrksrc=tamsyn-font-${version}
 depends="font-util xbps-triggers"
 short_desc="Monospaced programming font for the console and X11"
-maintainer="Diogo Leal <diogo@diogoleal.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="custom:Tamsyn"
 homepage="http://www.fial.com/~scott/tamsyn-font"
 distfiles="http://www.fial.com/~scott/tamsyn-font/download/tamsyn-font-${version}.tar.gz"

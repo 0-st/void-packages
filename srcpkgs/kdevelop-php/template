@@ -1,8 +1,7 @@
 # Template file for 'kdevelop-php'
 pkgname=kdevelop-php
-version=21.12.3
+version=22.12.2
 revision=1
-wrksrc="kdev-php-${version}"
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules qt5-qmake gettext tar
@@ -16,4 +15,4 @@ license="GPL-2.0-or-later, LGPL-2.0-or-later"
 homepage="https://www.kdevelop.org/"
 changelog="https://kde.org/announcements/changelogs/gear/${version}/#kdev-php"
 distfiles="${KDE_SITE}/release-service/${version}/src/kdev-php-${version}.tar.xz"
-checksum=4a85438a51bf6e3faedca3f64c2ffd08355d20fd4214c12fe010f003f5c3b17c
+checksum=0df5bdebfffe72cc4ae5bc842418ac30908fbaa4ae5c8762a9c4ad361c3e42b7

@@ -1,15 +1,14 @@
 # Template file for 'perl-DBD-mysql'
 pkgname=perl-DBD-mysql
 version=4.050
-revision=9
-wrksrc="DBD-mysql-${version}"
+revision=10
 build_style=perl-module
 hostmakedepends="perl perl-DBI perl-Devel-CheckLib"
 makedepends="${hostmakedepends} libmariadbclient-devel openssl-devel zlib-devel"
 depends="perl-DBI"
 checkdepends="perl-Test-Deep"
 short_desc="DBD::mysql - MySQL DBI driver"
-maintainer="Diogo Leal <diogo@diogoleal.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="Artistic-1.0-Perl, GPL-1.0-or-later"
 homepage="https://metacpan.org/release/DBD-mysql"
 distfiles="${CPAN_SITE}/DBD/DBD-mysql-${version}.tar.gz"

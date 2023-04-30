@@ -1,15 +1,14 @@
 # Template file for 'perl-DateTime'
 pkgname=perl-DateTime
 version=1.54
-revision=1
-wrksrc="${pkgname/perl-/}-${version}"
+revision=2
 build_style=perl-module
 hostmakedepends="perl"
 makedepends="perl-DateTime-Locale perl-DateTime-TimeZone"
 depends="$makedepends"
 checkdepends="perl-CPAN-Meta-Check perl-Test-Fatal perl-Test-Warnings"
 short_desc="Date and time object for Perl"
-maintainer="John Regan <john@jrjrtech.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="Artistic-1.0-Perl, GPL-1.0-or-later"
 homepage="https://metacpan.org/release/DateTime"
 distfiles="${CPAN_SITE}/DateTime/${pkgname/perl-/}-${version}.tar.gz"

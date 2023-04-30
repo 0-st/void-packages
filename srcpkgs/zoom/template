@@ -1,19 +1,19 @@
 # Template file for 'zoom'
 pkgname=zoom
-version=5.9.6.2225
+version=5.13.11.1288
 revision=1
 archs="x86_64"
-wrksrc=zoom
 create_wrksrc=yes
-hostmakedepends="rpmextract"
 depends="$(vopt_if systemqt 'qt5 qt5-graphicaleffects qt5-imageformats qt5-quickcontrols qt5-quickcontrols2 qt5-svg qt5-script qt5-declarative')
- xcb-util-image xcb-util-keysyms"
+ xcb-util-image xcb-util-keysyms glib libXfixes libXtst libgbm libglvnd
+ nss atk at-spi2-atk libXcomposite libXdamage libXrandr libxkbcommon pango
+ alsa-lib libcups libxshmfence pulseaudio-utils"
 short_desc="Video Conferencing and Web Conferencing Service"
-maintainer="Daniel Santana <daniel@santana.tech>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="custom:Proprietary"
 homepage="https://zoom.us/"
 distfiles="https://cdn.zoom.us/prod/${version}/zoom_x86_64.rpm"
-checksum=1e43ae0e43168586f5dd05ace1e646afe1455825b62b760e2dab0a3564da35e3
+checksum=55271393c1bd90d3ec260069bdec78df09305b5bbdcd99d199ea2432ed0eeb7e
 repository=nonfree
 noshlibprovides=yes
 noverifyrdeps=yes

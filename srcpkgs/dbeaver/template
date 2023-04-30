@@ -1,22 +1,19 @@
 # Template file for 'dbeaver'
 pkgname=dbeaver
-version=22.0.3
+version=23.0.3
 revision=1
 # the build downloads binaries linked to glibc
 archs="x86_64 aarch64"
-hostmakedepends="apache-maven"
-depends="openjdk11" # openjdk11 or later version, when available
+hostmakedepends="apache-maven openjdk17"
+depends="openjdk17"
 short_desc="Free Universal Database Tool"
 maintainer="Kyle Nusbaum <knusbaum+void@sdf.org>"
 license="Apache-2.0"
 homepage="https://dbeaver.io"
+changelog="https://dbeaver.io/news/"
 distfiles="https://github.com/dbeaver/dbeaver/archive/${version}.tar.gz"
-checksum=5af628ec7cd4c0e63fd074dd92d5668788136321cc273f778f20ff8c7907323a
+checksum=8470d2cd00e12aaa13b7167786116229bb60c30c10da3029996270503a99b129
 nopie=true
-
-if [ "$XBPS_TARGET_MACHINE" = aarch64 ]; then
-	broken="https://build.voidlinux.org/builders/aarch64_builder/builds/36442/steps/shell_3/logs/stdio"
-fi
 
 do_build() {
 	mvn package -P all-platforms
@@ -28,4 +25,6 @@ do_install() {
 
 	vmkdir /usr/bin
 	ln -s /usr/lib/dbeaver/dbeaver ${DESTDIR}/usr/bin/dbeaver
+
+	vinstall ${FILESDIR}/dbeaver.desktop 0644 usr/share/applications
 }

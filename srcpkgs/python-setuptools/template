@@ -4,12 +4,11 @@ pkgname=python-setuptools
 # python2 support for setuptools ended at 44.0.0
 version=44.0.0
 revision=2
-wrksrc="setuptools-${version}"
 build_style=python2-module
 hostmakedepends="python-devel"
 depends="python"
 short_desc="Easily build and distribute Python2 packages"
-maintainer="Alessio Sergi <al3hex@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
 homepage="https://github.com/pypa/setuptools"
 distfiles="${PYPI_SITE}/s/setuptools/setuptools-${version}.zip"

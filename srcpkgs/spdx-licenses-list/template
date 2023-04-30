@@ -2,15 +2,14 @@
 
 # common/travis/license.lst should be updated in sync with this package
 pkgname=spdx-licenses-list
-version=3.16
+version=3.19
 revision=1
-wrksrc="license-list-data-${version}"
 short_desc="SPDX License List"
 maintainer="mobinmob <mobinmob@disroot.org>"
 license="CC-BY-3.0"
 homepage="https://spdx.org"
 distfiles="https://github.com/spdx/license-list-data/archive/v${version}.tar.gz"
-checksum=49452295f8f61c70f0bc123431f09710bca3e54e32299548f1a1c2a782987dbd
+checksum=2c5f6d611c1f0d6e794de5c40ddefcfdf72244b9e40d92126770cdf2d1677b2d
 
 do_install() {
 	vmkdir usr/share/spdx

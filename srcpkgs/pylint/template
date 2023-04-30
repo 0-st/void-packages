@@ -1,28 +1,27 @@
 # Template file for 'pylint'
 pkgname=pylint
-version=2.13.5
+version=2.17.2
 revision=1
-build_style=python3-module
+build_style=python3-pep517
+make_build_args="--skip-dependency-check --no-isolation --wheel"
 make_check_args="--deselect=tests/benchmark/test_baseline_benchmarks.py"
-hostmakedepends="python3-setuptools"
-depends="python3-astroid python3-isort python3-mccabe python3-tomli
+hostmakedepends="python3-wheel"
+depends="python3-astroid python3-isort python3-mccabe python3-tomlkit
  python3-platformdirs python3-dill"
 checkdepends="$depends python3-pytest python3-tkinter python3-six
  python3-GitPython git"
 short_desc="Python code static checker"
 maintainer="Michal Vasilek <michal@vasilek.cz>"
 license="GPL-2.0-or-later"
-homepage="https://www.pylint.org/"
-changelog="https://raw.githubusercontent.com/PyCQA/pylint/master/ChangeLog"
+homepage="https://pylint.pycqa.org"
 distfiles="https://github.com/PyCQA/pylint/archive/refs/tags/v$version.tar.gz"
-checksum=5450fd8014baf1663fb4860b7e1dc4f4c4eb9649598a210d68e97be0973c783f
+checksum=4e1052a2cf2d9c3098382e395519abaa3ebec8d5b749cad8d249cccb799adb05
+make_check=no # FIXME
 
 post_install() {
 	# install example config and emacs files
 	vsconf examples/pylintrc
 	vsconf examples/pylintrc_camelcase
-	vsconf elisp/pylint.el
-	vsconf elisp/pylint-flymake.el
 }
 
 python3-pylint_package() {

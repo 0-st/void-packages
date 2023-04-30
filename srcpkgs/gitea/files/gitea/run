@@ -1,4 +1,5 @@
 #!/bin/sh
+exec 2>&1
 
 # USER and HOME are needed because gitea doesn't actually check the user it
 # runs as, but instead just grabs the variables from the variables.
@@ -8,4 +9,5 @@ export HOME=/var/lib/gitea
 # gitea needs to run from its home for SSH to work properly
 export GITEA_WORK_DIR="${HOME}"
 
-exec chpst -u _gitea:_gitea gitea web --config /etc/gitea.conf
+cd "${HOME}"
+exec chpst -u _gitea:_gitea gitea web --config /etc/gitea.conf 2>&1

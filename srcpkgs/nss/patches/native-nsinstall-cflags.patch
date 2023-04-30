@@ -1,11 +1,21 @@
---- nss-3.68.orig/nss/coreconf/nsinstall/Makefile
-+++ nss-3.68/nss/coreconf/nsinstall/Makefile
-@@ -32,6 +32,8 @@ endif
+--- a/nss/coreconf/nsinstall/Makefile
++++ b/nss/coreconf/nsinstall/Makefile
+@@ -15,6 +15,10 @@ PROGRAM		= nsinstall
+ # Indicate that this directory builds build tools.
+ INTERNAL_TOOLS  = 1
+ 
++ifdef NATIVE_CC
++NSPR_INCLUDE_DIR :=
++NSPR_LIB_DIR := /usr/lib
++endif
+ 
+ include $(DEPTH)/coreconf/config.mk
+ 
+@@ -32,6 +36,7 @@ endif
  
  ifdef NATIVE_FLAGS
  OS_CFLAGS=$(NATIVE_FLAGS)
 +XCFLAGS = $(NATIVE_FLAGS)
-+LDFLAGS = $(LDFLAGS_FOR_BUILD)
  endif
  
- include $(DEPTH)/coreconf/rules.mk
+ ifdef NATIVE_LDFLAGS

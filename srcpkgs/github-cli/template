@@ -1,8 +1,7 @@
 # Template file for 'github-cli'
 pkgname=github-cli
-version=2.8.0
-revision=2
-wrksrc="cli-${version}"
+version=2.28.0
+revision=1
 build_style=go
 build_helper=qemu
 go_import_path="github.com/cli/cli/v2/cmd/gh"
@@ -12,8 +11,8 @@ maintainer="shizonic <realtiaz@gmail.com>"
 license="MIT"
 homepage="https://cli.github.com"
 changelog="https://github.com/cli/cli/releases"
-distfiles="https://github.com/cli/cli/archive/v${version}.tar.gz"
-checksum=d4aed3f4325bc518cf4af6fc7989ab35b498e42e8f97ba0e6bb07d7e3b14886a
+distfiles="https://github.com/cli/cli/archive/refs/tags/v${version}.tar.gz"
+checksum=cf3c0fb7f601d717d8b5177707a197c49fd426f5dc3c9aa52a932e96ba7166af
 
 pre_build() {
 	local _date
@@ -23,19 +22,14 @@ pre_build() {
 	fi
 }
 
-post_build() {
-	CGO_ENABLED=0 GOARCH="" go run script/build.go manpages
-	gh=$(find $GOPATH/bin -name gh)
-	for shell in bash fish zsh; do
-		vtargetrun $gh completion -s $shell > github-cli.$shell
-	done
-}
-
 post_install() {
 	vlicense LICENSE
 
+	CGO_ENABLED=0 GOARCH="" go run script/build.go manpages
 	vcopy share/man usr/share
+
 	for shell in bash fish zsh; do
-		vcompletion github-cli.$shell $shell gh
+		vtargetrun "${DESTDIR}/usr/bin/gh" completion -s ${shell} > github-cli.${shell}
+		vcompletion github-cli.${shell} ${shell} gh
 	done
 }

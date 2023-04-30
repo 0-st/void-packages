@@ -1,8 +1,7 @@
 # Template file for 'perl-Pod-Parser'
 pkgname=perl-Pod-Parser
-version=1.63
+version=1.66
 revision=1
-wrksrc="${pkgname/perl-/}-${version}"
 build_style=perl-module
 hostmakedepends="perl"
 makedepends="perl"
@@ -12,4 +11,4 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="Artistic-1.0-Perl, GPL-1.0-or-later"
 homepage="https://metacpan.org/release/Pod-Parser"
 distfiles="${CPAN_SITE}/Pod/${pkgname/perl-/}-${version}.tar.gz"
-checksum=dbe0b56129975b2f83a02841e8e0ed47be80f060686c66ea37e529d97aa70ccd
+checksum=22928a7bffe61b452c05bbbb8f5216d4b9cf9fe2a849b776c25500d24d20df7c

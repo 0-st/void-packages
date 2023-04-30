@@ -1,25 +1,27 @@
 # Template file for 'qt6-quicktimeline'
 pkgname=qt6-quicktimeline
-version=6.2.2
+version=6.4.2
 revision=1
-wrksrc="qtquicktimeline-everywhere-src-${version/rc/-rc}"
 build_style=cmake
-configure_args="-DQT_HOST_PATH=/usr "
-hostmakedepends="perl qt6-base-devel qt6-declarative-devel"
+hostmakedepends="perl qt6-base qt6-declarative-host-tools"
 makedepends="qt6-base-devel qt6-declarative-devel"
 short_desc="Cross-platform application and UI framework - quicktimeline"
 maintainer="John <me@johnnynator.dev>"
 license="GPL-3.0-or-later"
 homepage="https://qt.io/"
 distfiles="http://download.qt.io/official_releases/qt/${version%.*}/${version/rc/-rc}/submodules/qtquicktimeline-everywhere-src-${version/rc/-rc}.tar.xz"
-checksum=939d5479b035f674dd669b3e084ec9688eaea62763d2a7ad134630ff20efd479
+checksum=3088abb7f478362a354ea1509d1c3c3403e3f5adfb84f3e5cf30a1f2eff09a5e
 
 if [ "$XBPS_CHECK_PKGS" ]; then
-	configure_args+=" -DQT_BUILD_TESTS=ON"
+	configure_args="-DQT_BUILD_TESTS=ON"
 fi
 
 pre_check() {
 	export QML2_IMPORT_PATH="$wrksrc/build/lib/qt6/qml"
+}
+
+post_install() {
+	rm -rf ${DESTDIR}/usr/tests
 }
 
 do_check() {

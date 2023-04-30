@@ -1,22 +1,23 @@
 # Template file for 'python3-scipy'
 pkgname=python3-scipy
-version=1.8.0
+version=1.10.1
 revision=1
-wrksrc="scipy-${version}"
 build_style=python3-module
 build_helper="numpy"
 make_check_args="--force"
-hostmakedepends="gcc-fortran python3-setuptools python3-Cython python3-pybind11"
+hostmakedepends="gcc-fortran python3-setuptools
+ pythran python3-Cython python3-pybind11"
 makedepends="python3-devel python3-pybind11
  $(vopt_if openblas openblas-devel lapack-devel)"
 depends="python3-numpy"
-checkdepends="python3-pytest"
+checkdepends="python3-pytest-xdist python3-pooch"
 short_desc="Scientific library for Python3"
 maintainer="Andrew J. Hesford <ajh@sideband.org>"
 license="BSD-3-Clause"
 homepage="https://scipy.org/scipylib/"
-distfiles="https://github.com/scipy/scipy/releases/download/v${version}/scipy-${version}.tar.xz"
-checksum=91548576a0096324ccff0e49f7ff94be6d19d71242a455c4160e2c61b9abbcb8
+distfiles="https://github.com/scipy/scipy/releases/download/v${version}/scipy-${version}.tar.gz"
+checksum=2cf9dfb80a7b4589ba4c40ce7588986d6d5cebc5457cad2c2880f6bc2d42f3a5
+make_check="ci-skip" # Tests require downloaded data and take a long time
 
 build_options="openblas"
 
@@ -35,13 +36,8 @@ if [ "$build_option_openblas" ]; then
 	esac
 fi
 
-LDFLAGS+=" -shared"
-
 # Tell numpy to build in parallel
 export NPY_NUM_BUILD_JOBS="${XBPS_MAKEJOBS}"
-
-# Pythran isn't packaged, disable for now
-export SCIPY_USE_PYTHRAN=0
 
 pre_build() {
 	# Find the right linear algebra subroutines on the target arch
@@ -58,7 +54,8 @@ pre_build() {
 }
 
 do_check() {
-	python3 ./runtests.py --verbose
+	touch .coveragerc
+	python3 ./runtests.py --verbose ${makejobs}
 }
 
 post_install() {

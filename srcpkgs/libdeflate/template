@@ -1,16 +1,16 @@
 # Template file for 'libdeflate'
 pkgname=libdeflate
-version=1.10
+version=1.18
 revision=1
-build_style=gnu-makefile
-make_build_args="PROG_SUFFIX=libdeflate"
+build_style=cmake
 checkdepends="zlib-devel"
 short_desc="Optimized library for DEFLATE/zlib/gzip (de)compression"
 maintainer="mobinmob <mobinmob@disroot.org>"
 license="MIT"
 homepage="https://github.com/ebiggers/libdeflate"
+changelog="https://raw.githubusercontent.com/ebiggers/libdeflate/master/NEWS.md"
 distfiles="https://github.com/ebiggers/libdeflate/archive/refs/tags/v${version}.tar.gz"
-checksum=5c1f75c285cd87202226f4de49985dcb75732f527eefba2b3ddd70a8865f2533
+checksum=225d982bcaf553221c76726358d2ea139bb34913180b20823c782cede060affd
 
 post_install() {
 	vlicense COPYING
@@ -24,5 +24,6 @@ libdeflate-devel_package() {
 		vmove "usr/lib/*.a"
 		vmove "usr/lib/*.so"
 		vmove "/usr/lib/pkgconfig"
+		vmove "/usr/lib/cmake"
 	}
 }

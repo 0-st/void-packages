@@ -1,7 +1,7 @@
 # Template file for 'packer'
 pkgname=packer
-version=1.8.0
-revision=1
+version=1.8.6
+revision=2
 build_style=go
 go_import_path="github.com/hashicorp/packer"
 short_desc="Create identical multiplatform machine images from a single source"
@@ -9,7 +9,7 @@ maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="MPL-2.0"
 homepage="http://www.packer.io"
 distfiles="https://${go_import_path}/archive/v${version}.tar.gz"
-checksum=3df688cb488e746df529474f08a430adf0c7c839c4ed3de2022a094eadc515fd
+checksum=11acae341130dff0950a80e4c56df416d547298f42ca49e8e862de23afe1046f
 replaces="packer-bin>=0"
 
 case "$XBPS_TARGET_MACHINE" in

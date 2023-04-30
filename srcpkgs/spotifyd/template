@@ -1,7 +1,8 @@
 # Template file for 'spotifyd'
 pkgname=spotifyd
-version=0.3.3
+version=0.3.5
 revision=1
+archs="x86_64* i686* aarch64* arm*" # ring
 build_style=cargo
 configure_args="--no-default-features"
 hostmakedepends="pkg-config"
@@ -12,8 +13,9 @@ short_desc="Spotify client running as a UNIX daemon"
 maintainer="Andrew Benson <abenson+void@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/Spotifyd/spotifyd"
-distfiles="${homepage}/archive/v${version}.tar.gz"
-checksum=7fec8244a0052449d9c598535013dfe2a01bd6a1a55b271a713af4fcbeb98360
+changelog="https://raw.githubusercontent.com/Spotifyd/spotifyd/master/CHANGELOG.md"
+distfiles="https://github.com/Spotifyd/spotifyd/archive/v${version}.tar.gz"
+checksum=59103f7097aa4e2ed960f1cc307ac8f4bdb2f0067aad664af32344aa8a972df7
 
 build_options="alsa pulseaudio portaudio dbus"
 build_options_default="alsa pulseaudio portaudio dbus"

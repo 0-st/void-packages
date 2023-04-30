@@ -1,15 +1,15 @@
 # Template file for 'mdbook-toc'
 pkgname=mdbook-toc
-version=0.7.0
+version=0.11.2
 revision=1
 build_style=cargo
 short_desc="Preprocessor for mdbook to add inline TOC support"
-maintainer="q66 <daniel@octaforge.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="MPL-2.0"
 homepage="https://github.com/badboy/mdbook-toc"
 changelog="https://raw.githubusercontent.com/badboy/mdbook-toc/main/CHANGELOG.md"
-distfiles="https://github.com/badboy/${pkgname}/archive/${version}.tar.gz"
-checksum=2407220d701db86767465acf96b4356bc357fc5d0f6e3ad4f2e6758e98714f40
+distfiles="https://github.com/badboy/mdbook-toc/archive/${version}.tar.gz"
+checksum=39a1cbf3d50d19c0a304c41408439b6f3a053bcfedb1958af00cf20b8daa8cc7
 
 post_install() {
 	vlicense LICENSE

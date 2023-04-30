@@ -1,17 +1,18 @@
 # Template file for 'hunspell'
 pkgname=hunspell
-version=1.7.0
-revision=3
+version=1.7.2
+revision=1
 build_style=gnu-configure
 configure_args="--with-ui"
-hostmakedepends="automake bison libtool pkg-config"
+hostmakedepends="automake bison libtool pkg-config gettext-devel-tools"
 makedepends="ncurses-devel"
 short_desc="Spell checker and morphological analyzer"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later, MPL-1.1"
 homepage="https://hunspell.github.io/"
+changelog="https://github.com/hunspell/hunspell/releases"
 distfiles="https://github.com/hunspell/hunspell/archive/v${version}.tar.gz"
-checksum=bb27b86eb910a8285407cf3ca33b62643a02798cf2eef468c0a74f6c3ee6bc8a
+checksum=69fa312d3586c988789266eaf7ffc9861d9f6396c31fc930a014d551b59bbd6e
 
 pre_configure() {
 	autoreconf -fi

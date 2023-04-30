@@ -1,13 +1,13 @@
 # Template file for 'acr'
 pkgname=acr
-version=1.9.8
+version=2.1.1
 revision=1
 build_style=gnu-configure
-checkdepends="pkg-config"
 make_check_target=test
+checkdepends="pkg-config"
 short_desc="AutoConf Replacement"
 maintainer="Felipe Nogueira <contato.fnog@gmail.com>"
 license="GPL-2.0-or-later"
 homepage="https://github.com/radare/acr"
 distfiles="${homepage}/archive/${version}.tar.gz"
-checksum=88bb2e4cb35b18370675710806c4ef03ef81a6ed521b939e272267754e8484c1
+checksum=ead74366e72f6104018de43ebeecf252dde53d4aaebf1d8b6676d4fa086c4b75

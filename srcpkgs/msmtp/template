@@ -1,6 +1,6 @@
 # Template file for 'msmtp'
 pkgname=msmtp
-version=1.8.20
+version=1.8.23
 revision=1
 build_style=gnu-configure
 configure_args="$(vopt_with msmtpd)
@@ -13,11 +13,11 @@ makedepends="gnutls-devel
  $(vopt_if sasl gsasl-devel)
  $(vopt_if gnome libsecret-devel)"
 short_desc="Mini SMTP client"
-maintainer="Peter Bui <pbui@github.bx612.space>"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-3.0-or-later"
 homepage="https://marlam.de/msmtp/"
 distfiles="https://marlam.de/msmtp/releases/msmtp-${version}.tar.xz"
-checksum=d93ae2aafc0f48af7dc9d0b394df1bb800588b8b4e8d096d8b3cf225344eb111
+checksum=cf04c16b099b3d414db4b5b93fc5ed9d46aad564c81a352aa107a33964c356b8
 
 build_options="idn sasl gnome msmtpd"
 build_options_default="idn sasl msmtpd"

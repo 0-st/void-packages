@@ -1,10 +1,10 @@
 # Template file for 'gnome-terminal'
 pkgname=gnome-terminal
-version=3.42.2
+version=3.48.0
 revision=1
 build_style=meson
-configure_args="-Dnautilus_extension=true -Db_ndebug=false"
-hostmakedepends="glib-devel intltool itstool pkg-config docbook-xsl libxslt"
+configure_args="-Dnautilus_extension=true -Db_ndebug=false -Db_lto=false"
+hostmakedepends="glib-devel gettext itstool pkg-config docbook-xsl libxslt"
 makedepends="dconf-devel gnome-shell gsettings-desktop-schemas-devel
  nautilus-devel vte3-devel"
 depends="desktop-file-utils"
@@ -12,8 +12,8 @@ short_desc="GNOME terminal emulator application"
 maintainer="Enno Boland <gottox@voidlinux.org>"
 license="GPL-2.0-or-later, GFDL-1.3-only"
 homepage="https://wiki.gnome.org/Apps/Terminal"
-distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=8a9c8e5ef7a3a73b246a947e1190bb08ec98935af860cf0b3aa2fbf4606817a0
+distfiles="https://gitlab.gnome.org/GNOME/gnome-terminal/-/archive/${version}/gnome-terminal-${version}.tar.gz"
+checksum=8e23c837cef30aaf041495e877455628db33b51c7018a2385af2fa8bdd34dcd5
 lib32disabled=yes
 
 if [ "$CROSS_BUILD" ]; then
@@ -23,8 +23,8 @@ fi
 
 nautilus-gnome-terminal-extension_package() {
 	depends="${sourcepkg}>=${version}_${revision}"
-		short_desc="gnome-terminal integration for nautilus"
+		short_desc+=" - nautilus integration"
 		pkg_install() {
-			vmove usr/lib/nautilus/extensions-3.0
+			vmove usr/lib/nautilus/extensions-4
 		}
 }

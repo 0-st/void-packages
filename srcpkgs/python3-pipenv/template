@@ -1,10 +1,9 @@
 # Template file for 'python3-pipenv'
 pkgname=python3-pipenv
-version=2022.4.21
+version=2023.4.20
 revision=1
-wrksrc="pipenv-${version}"
-build_style=python3-module
-hostmakedepends="python3-setuptools"
+build_style=python3-pep517
+hostmakedepends="python3-wheel"
 depends="python3 python3-pip python3-virtualenv python3-virtualenv-clone"
 short_desc="Python Development Workflow for Humans"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
@@ -12,12 +11,9 @@ license="MIT"
 homepage="https://github.com/pypa/pipenv"
 changelog="https://github.com/pypa/pipenv/blob/main/CHANGELOG.rst"
 distfiles="${PYPI_SITE}/p/pipenv/pipenv-${version}.tar.gz"
-checksum=3f93229de25a4c3a658249f48407b80f347f076640a9fd50c476a2876212f781
+checksum=801acd977f11c2c647f98232c1465ea7a4cf68e628f5cc4fe3333baeacc90052
 conflicts="python-pipenv>=0"
-
-post_extract() {
-	sed -i '/certifi/d' setup.py
-}
+make_check=no # tests are not contained in release tarball
 
 post_install() {
 	vlicense LICENSE

@@ -1,14 +1,13 @@
 # Template file for 'nvtop'
 pkgname=nvtop
-version=1.2.2
+version=3.0.1
 revision=1
-archs="x86_64"
 build_style=cmake
-makedepends="ncurses-devel"
-depends="nvidia"
-short_desc="NVIDIA GPUs htop-like monitoring tool"
-maintainer="Filokhin Pavel <filohin.pavel@gmail.com>"
+hostmakedepends="pkg-config"
+makedepends="libdrm-devel ncurses-devel"
+short_desc="GPUs process monitoring for AMD, Intel and NVIDIA"
+maintainer="Ishaan Bhimwal <ishaanbhimwal@protonmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/Syllo/nvtop"
-distfiles="https://github.com/Syllo/nvtop/archive/$version/$pkgname-$version.tar.gz"
-checksum=d6ca7f467cc1048ebd1ebf7add753650c5d7c8868752c0c57ed2c85df62f5810
+distfiles="https://github.com/Syllo/nvtop/archive/refs/tags/${version}.tar.gz"
+checksum=f61ecbe3a30a216706c16fc177d3b840e7d7deccf87b048d59f95f230d591a53

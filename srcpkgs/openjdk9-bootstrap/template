@@ -2,9 +2,10 @@
 _final_jdk_home="usr/lib/jvm/java-9-openjdk"
 pkgname=openjdk9-bootstrap
 version=9.0.4p12
-revision=2
+revision=3
 _repo_ver=${version/p/+}
-wrksrc="jdk9u-jdk-${_repo_ver}"
+archs="x86_64* i686* aarch64* arm* ppc64*"
+create_wrksrc=yes
 build_style=gnu-configure
 configure_args="
  --prefix=${XBPS_DESTDIR}/${pkgname}-${version}/usr/lib
@@ -28,7 +29,7 @@ makedepends="libXrender-devel libXtst-devel libXt-devel libXrandr-devel
  giflib-devel libpng-devel libjpeg-turbo-devel lcms2-devel cups-devel
  freetype-devel alsa-lib-devel fontconfig-devel zlib-devel"
 short_desc="OpenJDK Java Development Kit (bootstrap version 9)"
-maintainer="q66 <daniel@octaforge.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-only WITH Classpath-exception-2.0"
 homepage="http://openjdk.java.net/"
 distfiles="
@@ -40,6 +41,7 @@ distfiles="
  http://hg.openjdk.java.net/jdk-updates/jdk9u/jdk/archive/jdk-${_repo_ver}.tar.bz2>jdk-${_repo_ver}-jdk.tar.bz2
  http://hg.openjdk.java.net/jdk-updates/jdk9u/langtools/archive/jdk-${_repo_ver}.tar.bz2>jdk-${_repo_ver}-langtools.tar.bz2
  http://hg.openjdk.java.net/jdk-updates/jdk9u/nashorn/archive/jdk-${_repo_ver}.tar.bz2>jdk-${_repo_ver}-nashorn.tar.bz2"
+repository=bootstrap
 
 checksum="914183a7eac6a1dfdfa70a98ceb4262244c77ab904c4570bb34c609ecb5f0986
  3807400280a3b92e9dd23fcdd76482162ce54af6fbbaa0777cb6235ad6a66fea
@@ -77,9 +79,10 @@ fi
 export CCACHE_DISABLE=1
 
 post_extract() {
+	mv jdk9u*/* .
 	chmod +x configure
 	for subrepo in corba hotspot jdk jaxws jaxp langtools nashorn; do
-		mv ../${subrepo}-jdk-${_repo_ver} ${subrepo}
+		mv ${subrepo}-jdk-${_repo_ver} ${subrepo}
 	done
 
 	if [ "$XBPS_TARGET_LIBC" = "musl" ]; then

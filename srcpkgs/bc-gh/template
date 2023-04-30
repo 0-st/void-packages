@@ -1,15 +1,14 @@
 # Template file for 'bc-gh'
 pkgname=bc-gh
-version=5.2.2
+version=6.5.0
 revision=1
-wrksrc="bc-${version}"
 short_desc="Implementation of POSIX bc with GNU extensions"
-maintainer="Gavin D. Howard <yzena.tech@gmail.com>"
+maintainer="Gavin D. Howard <gavin@gavinhoward.com>"
 license="BSD-2-Clause"
-homepage="https://git.yzena.com/gavin/bc"
-changelog="https://git.yzena.com/gavin/bc/raw/branch/master/NEWS.md"
+homepage="https://git.gavinhoward.com/gavin/bc"
+changelog="https://git.gavinhoward.com/gavin/bc/raw/branch/master/NEWS.md"
 distfiles="https://github.com/gavinhoward/bc/releases/download/${version}/bc-${version}.tar.xz"
-checksum=480249fc0e6a54cb2dc0059734ce433bff344d27b40b8591ae410068e1573352
+checksum=b1afb1f50c0bce6119c98590bcc8afc22f520bc85c2b512c83938dbb8321cc30
 alternatives="
  bc:bc:/usr/bin/bc-gh
  bc:bc.1:/usr/share/man/man1/bc-gh.1
@@ -21,7 +20,7 @@ alternatives="
 do_configure() {
 	PREFIX=/usr DESTDIR="${DESTDIR}" EXECSUFFIX=-gh CC="${CC}" CFLAGS="${CFLAGS}" \
 	HOSTCC="${CC_FOR_BUILD}" HOSTCFLAGS="${CFLAGS_FOR_BUILD}" ./configure.sh -GM \
-	-sbc.banner -sdc.tty_mode
+	-pGNU
 }
 do_build() {
 	make ${makejobs}

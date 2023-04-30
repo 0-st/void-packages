@@ -1,9 +1,10 @@
 # Template file for 'dasel'
 pkgname=dasel
-version=1.24.3
+version=2.2.0
 revision=1
 build_style=go
-go_import_path=github.com/tomwright/dasel
+build_helper=qemu
+go_import_path=github.com/tomwright/dasel/v2
 go_package="${go_import_path}/cmd/dasel"
 go_ldflags="-X ${go_import_path}/internal.Version=${version}"
 short_desc="Query and modify data structures using selector strings"
@@ -11,9 +12,13 @@ maintainer="Daniel Eyßer <daniel.eysser@gmail.com>"
 license="MIT"
 homepage="https://daseldocs.tomwright.me/"
 changelog="https://raw.githubusercontent.com/TomWright/dasel/master/CHANGELOG.md"
-distfiles="https://github.com/TomWright/dasel/archive/v${version}.tar.gz"
-checksum=86d497e7dcfe63901ef0aeddb31e3989959d60d785a04f98fc6a88b6f497980a
+distfiles="https://github.com/TomWright/dasel/archive/refs/tags/v${version}.tar.gz"
+checksum=7d64e3e6e37b358948ccd3479b54610b87fbcc562049ca96c0bcb4fcefeea350
 
 post_install() {
 	vlicense LICENSE
+	for shell in bash fish zsh; do
+		vtargetrun ${DESTDIR}/usr/bin/dasel completion ${shell} > completions.${shell}
+		vcompletion completions.${shell} ${shell}
+	done
 }

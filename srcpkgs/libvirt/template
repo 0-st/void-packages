@@ -1,6 +1,6 @@
 # Template file for 'libvirt'
 pkgname=libvirt
-version=8.2.0
+version=9.2.0
 revision=1
 build_style=meson
 configure_args="-Dqemu_user=libvirt -Dqemu_group=libvirt -Drunstatedir=/run
@@ -20,7 +20,7 @@ license="LGPL-2.1-or-later"
 homepage="https://libvirt.org"
 changelog="https://libvirt.org/news.html"
 distfiles="https://libvirt.org/sources/${pkgname}-${version}.tar.xz"
-checksum=0ecd9c7dd52db7a2d124155ffa5e11de2fbd05014eceffbd1972b022d21becba
+checksum=a07f501e99093ac1374888312be32182e799de17407ed7547d0e469fae8188c5
 # At least one test times out on CI but works locally
 make_check=ci-skip
 

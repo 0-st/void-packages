@@ -1,22 +1,19 @@
 # Template file for 'python3-ansible-compat'
 pkgname=python3-ansible-compat
-version=2.0.2
+version=3.0.1
 revision=1
-wrksrc="${pkgname/python3-/}-${version}"
 build_style=python3-pep517
-make_install_target="ansible_compat-${version}-py3-none-any.whl"
-hostmakedepends="python3-wheel python3-toml"
-depends="python3-subprocess-tee"
+hostmakedepends="python3-wheel python3-setuptools_scm"
+depends="python3-subprocess-tee python3-yaml"
 short_desc="Python package for working with various version of ansible"
 maintainer="Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license="MIT"
-homepage="https://github.com/ansible-community/ansible-compat"
-distfiles="${PYPI_SITE}/a/${pkgname/python3-/}/${pkgname/python3-/}-${version}.tar.gz"
-checksum=c651995dc323ef145bab857fee6540febc881fb71b7feafe8163d49e273163a5
+homepage="https://github.com/ansible/ansible-compat"
+distfiles="${PYPI_SITE}/a/ansible-compat/ansible-compat-${version}.tar.gz"
+checksum=d7dc5e4b7fade9b7375c568a24475b7be81024cac2a20caef3260ef0b51287b4
 
 post_patch() {
-	# scm versioning is broken in this release
-	vsed -e "/name =/a version = ${version}" -i setup.cfg
+	export SETUPTOOLS_SCM_PRETEND_VERSION="${version}"
 }
 
 post_install() {

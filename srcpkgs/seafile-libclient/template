@@ -1,21 +1,20 @@
 # Template file for 'seafile-libclient'
-# WARNING: upstream sometimes retag source. Wait for official announcement
 pkgname=seafile-libclient
-version=8.0.4
+version=8.0.10
 revision=1
 _distname="${pkgname/-libclient/}"
-wrksrc="${_distname}-${version}"
 build_style=gnu-configure
 configure_args="PYTHON=python3 --disable-static"
-hostmakedepends="automake intltool libsearpc-codegen libtool pkg-config vala"
+hostmakedepends="automake intltool libsearpc-codegen libtool pkg-config vala
+ glib-devel"
 makedepends="libglib-devel libuuid-devel libsearpc-devel sqlite-devel
- libevent-devel libcurl-devel"
+ libevent-devel libcurl-devel libwebsockets-devel"
 short_desc="Cloud storage system - library"
 maintainer="yopito <pierre.bourgin@free.fr>"
 license="GPL-2.0-or-later" # Has openssl exception not yet present on SPDX
 homepage="https://seafile.com"
 distfiles="https://github.com/haiwen/seafile/archive/v${version}.tar.gz"
-checksum=1c17cf589a2093f8d5423e56b2f6a098fdd44e8b7b9ffb62846270458aa0d197
+checksum=bcfa6576a272486cf30b7fa2207992b01b071bcc5744f0923a0d924c0257b8a5
 
 pre_configure() {
 	./autogen.sh

@@ -1,6 +1,6 @@
 # Template file for 'kio-extras'
 pkgname=kio-extras
-version=21.12.3
+version=23.04.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF -DKDSOAP_KDWSDL2CPP_COMPILER=/usr/bin/kdwsdl2cpp"
@@ -9,10 +9,10 @@ hostmakedepends="extra-cmake-modules pkg-config gperf qt5-qmake qt5-host-tools
 makedepends="kdesignerplugin-devel kactivities5-devel kdelibs4support-devel
  kdnssd-devel khtml-devel kpty-devel exiv2-devel libmtp-devel libssh-devel
  syntax-highlighting-devel libopenexr-devel samba-devel taglib-devel
- KDSoap-devel ksolid-devel"
+ libkexiv25-devel KDSoap-devel ksolid-devel"
 short_desc="Additional KIO components"
 maintainer="Denis Revin <denis.revin@gmail.com>"
 license="GPL-2.0-or-later, LGPL-2.0-or-later"
 homepage="https://invent.kde.org/network/kio-extras"
 distfiles="${KDE_SITE}/release-service/${version}/src/kio-extras-${version}.tar.xz"
-checksum=b1400209157f5ff21e0981a54c8bdb442a51764ccd88fecdd7e49f989bb4f787
+checksum=0db97164276d609c2c03acbe3f9c24000f0330e8e4f5bf7b3fad68ecbd7b60d1

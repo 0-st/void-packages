@@ -1,20 +1,30 @@
 # Template file for 'libtool'
 pkgname=libtool
-version=2.4.6
-revision=6
+version=2.4.7
+revision=4
 build_style=gnu-configure
-hostmakedepends="texinfo perl automake help2man xz"
-depends="tar sed"
+hostmakedepends="texinfo perl automake help2man xz gnulib tar"
+depends="tar sed grep"
 short_desc="Generic library support script"
 maintainer="Enno Boland <gottox@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="http://www.gnu.org/software/libtool"
 distfiles="${GNU_SITE}/libtool/$pkgname-$version.tar.xz"
-checksum=7c87a8c2c8c0fc9cd5019e402bed4292462d00a718a7cd5f11218153bf28b26f
+checksum=4f7f217f057ce655ff22559ad221a0fd8ef84ad1fc5fcb6990cecc333aa1635d
 
-pre_configure() {
-	touch aclocal.m4 libltdl/aclocal.m4 Makefile.am libltdl/Makefile.am Makefile.in libltdl/Makefile.in
-	./bootstrap --force
+if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
+	# Musl always searches LD_LIBRARY_PATH before RPATH and RUNPATH
+	configure_args="lt_cv_shlibpath_overrides_runpath=yes"
+fi
+
+post_extract() {
+	chmod -R +rw .
+}
+
+do_configure() {
+	./bootstrap --force --no-git --skip-po \
+		--gnulib-srcdir=/usr/share/gnulib/ --copy
+	./configure ${configure_args} SED=/bin/sed GREP=/bin/grep
 }
 
 post_install() {
@@ -28,8 +38,8 @@ post_install() {
 	# things that need to go; the target libtool script is meant to be used
 	# in native environments, not in cross environments, so patch the script
 	if [ "$CROSS_BUILD" ]; then
-		# e.g. AR="armv7l-linux-gnueabihf-ar" becomes AR="${AR:=ar}"
-		vsed -i -e "s,\([A-Z]\+\)=\"${XBPS_CROSS_TRIPLET}\-\(.*\)\",\1=\$\{\1:=\2\},g" \
+		# e.g. AR="armv7l-linux-gnueabihf-ar" becomes AR="ar"
+		vsed -i -e "s,\([A-Z]\+\)=\"${XBPS_CROSS_TRIPLET}\-\(.*\)\",\1=\"\2\",g" \
 		 ${PKGDESTDIR}/usr/bin/libtool
 
 		# clear out any sysroot present
@@ -40,16 +50,35 @@ post_install() {
 		vsed -i -e "s,\-I${XBPS_CROSS_BASE}/usr/include,,g" \
 		 ${PKGDESTDIR}/usr/bin/libtool
 
+		# Strip cross sysroot from paths
+		vsed -i -e "s,${XBPS_CROSS_BASE},,g" \
+		 ${PKGDESTDIR}/usr/bin/libtool
+
+		if [ "$XBPS_TARGET_WORDSIZE" = "64" ]; then
+			vsed -i \
+			 -e "s,/${XBPS_CROSS_TRIPLET}/lib/../lib64,/lib64,g" \
+			 ${PKGDESTDIR}/usr/bin/libtool
+		else
+			vsed -i \
+			 -e "s,/${XBPS_CROSS_TRIPLET}/lib,/lib,g" \
+			 ${PKGDESTDIR}/usr/bin/libtool
+		fi
+
 		# canonicalize host_alias, replace build(_alias,_os)
 		_canonical_host=$(grep "^host=" ${PKGDESTDIR}/usr/bin/libtool | sed 's/host=//')
 		_host_os=$(grep "^host_os=" ${PKGDESTDIR}/usr/bin/libtool | sed 's/host_os=//')
 		vsed -i \
 		 -e "s,^host_alias=.*,host_alias=${_canonical_host}," \
-		 -e "s,^host=.*,host=${_canonical_host}," \
 		 -e "s,^build_alias=.*,build_alias=${_canonical_host}," \
 		 -e "s,^build=.*,build=${_canonical_host}," \
-		 -e "s,^build_os=.*,build_os=${_host_os}," \
 		 ${PKGDESTDIR}/usr/bin/libtool
+
+		# The host_os and build_os can be the same (i.e. linux-musl or linux-gnu)
+		if ! grep "build_os=${_host_os}" ${PKGDESTDIR}/usr/bin/libtool >/dev/null 2>&1; then
+			vsed -i \
+			 -e "s,^build_os=.*,build_os=${_host_os}," \
+			 ${PKGDESTDIR}/usr/bin/libtool
+		fi
 	fi
 }
 

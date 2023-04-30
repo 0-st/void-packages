@@ -1,16 +1,16 @@
 # Template file for 'libvterm'
 pkgname=libvterm
-version=0.1.4
+version=0.3.1
 revision=1
 build_style=gnu-makefile
 make_install_target="install-lib install-inc"
 hostmakedepends="libtool perl pkg-config"
 short_desc="Abstract VT220/xterm/ECMA-48 emulation library"
-maintainer="Steve Prybylski <sa.prybylx@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
-homepage="http://www.leonerd.org.uk/code/libvterm"
-distfiles="http://www.leonerd.org.uk/code/libvterm/libvterm-${version}.tar.gz"
-checksum=bc70349e95559c667672fc8c55b9527d9db9ada0fb80a3beda533418d782d3dd
+homepage="https://www.leonerd.org.uk/code/libvterm"
+distfiles="https://www.leonerd.org.uk/code/libvterm/libvterm-${version}.tar.gz"
+checksum=25a8ad9c15485368dfd0a8a9dca1aec8fea5c27da3fa74ec518d5d3787f0c397
 
 post_extract() {
 	if [ "$CROSS_BUILD" ]; then

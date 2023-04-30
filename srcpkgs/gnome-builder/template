@@ -1,34 +1,27 @@
 # Template file for 'gnome-builder'
 pkgname=gnome-builder
-version=41.3
-revision=1
+version=44.1
+revision=2
 build_style=meson
 build_helper=qemu
 configure_args="-Dhelp=true -Dnetwork_tests=false"
 hostmakedepends="pkg-config appstream-glib desktop-file-utils flex gobject-introspection
- gspell-devel llvm mm-common vala python3-Sphinx python3-sphinx_rtd_theme gettext"
-makedepends="cairo-devel clang devhelp-devel enchant2-devel flatpak-devel
- gspell-devel gtksourceview4-devel gtk+3-devel json-glib-devel jsonrpc-glib-devel
- libdazzle-devel libgit2-glib-devel libglib-devel libostree-devel libpeas-devel
- libxml2-devel template-glib-devel vala-devel vte3-devel webkit2gtk-devel
- python3-gobject-devel sysprof-devel glade3-devel libportal-devel cmark-devel"
-depends="desktop-file-utils flatpak-builder python3-lxml devhelp python3-gobject"
-checkdepends="xvfb-run"
+ llvm mm-common vala python3-Sphinx python3-sphinx_rtd_theme gettext"
+makedepends="cairo-devel clang enchant2-devel flatpak-devel
+ gtksourceview5-devel gtk4-devel json-glib-devel jsonrpc-glib-devel
+ libgit2-glib-devel libglib-devel libostree-devel libpeas-devel
+ libxml2-devel template-glib-devel vala-devel vte3-gtk4-devel libwebkitgtk60-devel
+ libadwaita-devel pcre2-devel libgit2-devel gobject-introspection
+ python3-gobject-devel sysprof-devel libportal-gtk4-devel
+ libsoup3-devel cmark-devel pango-devel libportal-devel
+ libpanel-devel d-spy-devel editorconfig-devel libdex-devel"
+depends="desktop-file-utils flatpak-builder python3-lxml python3-gobject"
+checkdepends="xvfb-run cmark-devel"
 short_desc="IDE for GNOME"
 maintainer="Enno Boland <gottox@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="https://wiki.gnome.org/Apps/Builder"
-changelog="https://gitlab.gnome.org/GNOME/gnome-builder/raw/gnome-builder-3-40/NEWS"
-distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=e2250fc8e9e9f2002c452e5950d82685734d3c4480b35167ab508ac8702509e1
-
-case "$XBPS_TARGET_MACHINE" in
-	*-musl)
-		makedepends+=" libexecinfo-devel"
-		LIBS+=" -lexecinfo"
-		;;
-esac
-
-do_check() {
-	xvfb-run ninja -C build test
-}
+changelog="https://gitlab.gnome.org/GNOME/gnome-builder/-/raw/gnome-builder-44/NEWS"
+distfiles="${GNOME_SITE}/gnome-builder/${version%.*}/gnome-builder-${version}.tar.xz"
+checksum=f939a7f95b4b6e1d04bd8db4be9ca0b67b2aa765b86c63f4df23fdb3a7edcf3e
+make_check_pre="xvfb-run"

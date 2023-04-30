@@ -1,6 +1,6 @@
 # Template file for 'manuskript'
 pkgname=manuskript
-version=0.13.1
+version=0.15.0
 revision=1
 pycompile_dirs="usr/share/${pkgname}"
 hostmakedepends="python3-setuptools"
@@ -10,7 +10,7 @@ maintainer="Andrew Benson <abenson+void@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="http://www.theologeek.ch/manuskript"
 distfiles="https://github.com/olivierkes/manuskript/archive/${version}.tar.gz"
-checksum=a90ad6197210539795507d238d17c001912225283ed2b8142380fac5a063bebf
+checksum=e9139178c6c10f50817481037483c36329d7f0d5048f3ffecd0b0e9f9c02e027
 python_version=3
 
 do_install() {

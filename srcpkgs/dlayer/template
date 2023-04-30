@@ -1,10 +1,9 @@
 # Template file for 'dlayer'
 pkgname=dlayer
 version=0.3.1
-revision=1
+revision=2
 build_style=go
 go_import_path=github.com/orisano/dlayer
-hostmakedepends="git"
 short_desc="Dlayer is a docker layer analyzer"
 maintainer="Mate GABRI <iam@theguy.io>"
 license="MIT"

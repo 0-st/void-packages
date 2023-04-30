@@ -1,6 +1,6 @@
 # Template file for 'mcomix'
 pkgname=mcomix
-version=2.0.1
+version=2.1.0
 revision=1
 build_style=python3-module
 hostmakedepends="python3-setuptools"
@@ -10,8 +10,4 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-2.0-only"
 homepage="http://sourceforge.net/projects/mcomix/"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/MComix-${version}/${pkgname}-${version}.tar.gz"
-checksum=57f97ebac913f8b9021b4cb52e135b205ef58353d16d9f838d62f55d0252eca0
-
-post_install() {
-	cp -r mcomix/images ${DESTDIR}/usr/lib/python3.*/site-packages/mcomix
-}
+checksum=368938a2a4deccef38abd20366f822df765e29f44bfada60ed01039a9d996695

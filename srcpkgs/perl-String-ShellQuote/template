@@ -2,13 +2,12 @@
 pkgname=perl-String-ShellQuote
 version=1.04
 revision=5
-wrksrc="${pkgname/perl-/}-${version}"
 build_style=perl-module
 hostmakedepends="perl"
 makedepends="${hostmakedepends}"
 depends="${makedepends}"
 short_desc="Perl module for quote strings for passing through the shell"
-maintainer="Alessio Sergi <al3hex@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="Artistic-1.0-Perl, GPL-1.0-or-later"
 homepage="https://metacpan.org/release/String-ShellQuote"
 distfiles="${CPAN_SITE}/String/${pkgname/perl-/}-${version}.tar.gz"

@@ -1,8 +1,7 @@
 # Template file for 'fio'
 pkgname=fio
-version=3.30
+version=3.34
 revision=1
-wrksrc="${pkgname}-${pkgname}-${version}"
 build_style=configure
 make_build_args="T_TEST_PROGS="
 make_install_args="mandir=/usr/share/man"
@@ -13,7 +12,7 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-2.0-only"
 homepage="https://github.com/axboe/fio"
 distfiles="https://github.com/axboe/${pkgname}/archive/${pkgname}-${version}.tar.gz"
-checksum=305647377527a2827223065582dd8a9269e69866426b341699d55bb4e4d3cc71
+checksum=42ea28c78d269c4cc111b7516213f4d4b32986797a710b0ff364232cc7a3a0b7
 python_version=3
 
 case "$XBPS_TARGET_MACHINE" in

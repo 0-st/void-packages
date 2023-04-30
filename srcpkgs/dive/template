@@ -1,11 +1,11 @@
 # Template file for 'dive'
 pkgname=dive
 version=0.10.0
-revision=1
+revision=2
 build_style=go
 go_import_path="github.com/wagoodman/dive"
 short_desc="Container image exploration tool"
-maintainer="Cameron Nemo <cnemo@tutanota.com>"
+maintainer="Cameron Nemo <cam@nohom.org>"
 license="MIT"
 homepage="https://github.com/wagoodman/dive"
 distfiles="${homepage}/archive/v${version}.tar.gz"

@@ -1,6 +1,6 @@
 # Template file for 'knotes'
 pkgname=knotes
-version=21.12.3
+version=23.04.0
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools libxslt
@@ -12,4 +12,4 @@ maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later, GFDL-1.2-only"
 homepage="https://apps.kde.org/knotes/"
 distfiles="${KDE_SITE}/release-service/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=a721328deea314066352a92bf99c22163cd7eb1f10f4d36b893d78cdb102f21e
+checksum=680370dc3232eed63397d6cba2f5c9a0b6623ff13266ae4182da9c2aaed41c91

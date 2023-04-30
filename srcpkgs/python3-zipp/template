@@ -1,21 +1,18 @@
 # Template file for 'python3-zipp'
 pkgname=python3-zipp
-version=3.6.0
+version=3.13.0
 revision=1
-wrksrc="zipp-${version}"
-build_style=python3-module
-hostmakedepends="python3-setuptools_scm"
+build_style=python3-pep517
+hostmakedepends="python3-setuptools_scm python3-wheel"
 depends="python3"
-checkdepends="python3-jaraco"
 short_desc="Pathlib-compatible Zipfile object wrapper (Python 3)"
-maintainer="Lorem <notloremipsum@protonmail.com>"
+maintainer="icp <pangolin@vivaldi.net>"
 license="MIT"
-homepage="https://github.com/jaraco/zipp"
-changelog="https://raw.githubusercontent.com/jaraco/zipp/master/CHANGES.rst"
+homepage="https://pypi.org/project/zipp/"
+changelog="https://raw.githubusercontent.com/jaraco/zipp/main/CHANGES.rst"
 distfiles="${PYPI_SITE}/z/zipp/zipp-${version}.tar.gz"
-checksum=71c644c5369f4a6e07636f0aa966270449561fcea2e3d6747b8d23efaa9d7832
-# Needs unpackaged "jaraco.itertools"
-make_check=no
+checksum=23f70e964bc11a34cef175bc90ba2914e1e4545ea1e3e2f67c079671883f9cb6
+make_check=no # unpackaged: jaraco.itertools
 
 post_install() {
 	vlicense LICENSE

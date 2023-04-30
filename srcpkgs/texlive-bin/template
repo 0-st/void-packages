@@ -1,6 +1,6 @@
 # Template file for 'texlive-bin'
 pkgname=texlive-bin
-version=2022
+version=2023
 revision=1
 depends="texlive${version}-bin"
 short_desc="TeX Live Binary distribution through tl-install (newest version)"

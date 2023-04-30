@@ -1,14 +1,13 @@
 # Template file for 'python-pbr'
 pkgname=python-pbr
 version=5.6.0
-revision=1
-wrksrc="pbr-${version}"
+revision=2
 build_style=python-module
 pycompile_module="pbr"
 hostmakedepends="python-setuptools python3-setuptools"
 depends="python"
 short_desc="Python2 build reasonableness"
-maintainer="Alessio Sergi <al3hex@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="Apache-2.0"
 homepage="https://docs.openstack.org/developer/pbr/"
 distfiles="${PYPI_SITE}/p/pbr/pbr-${version}.tar.gz"

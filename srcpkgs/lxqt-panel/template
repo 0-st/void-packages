@@ -1,6 +1,6 @@
 # Template file for 'lxqt-panel'
 pkgname=lxqt-panel
-version=1.1.0
+version=1.3.0
 revision=1
 build_style=cmake
 hostmakedepends="pkg-config lxqt-build-tools qt5-qmake qt5-host-tools perl"
@@ -14,4 +14,4 @@ maintainer="Helmut Pozimski <helmut@pozimski.eu>"
 license="LGPL-2.1-or-later"
 homepage="https://lxqt-project.org"
 distfiles="https://github.com/lxqt/lxqt-panel/archive/${version}.tar.gz"
-checksum=f80ccdeb59933d32aab1a425301b9b68458bf0c55567befe1c03263afad20d6d
+checksum=1abc3a6384c190a16ee90b73cc4b0adde3a9f51365c21114e37fefaae209212e

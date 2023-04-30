@@ -1,18 +1,18 @@
 # Template file for 'libatomic_ops'
 pkgname=libatomic_ops
-version=7.6.12
+version=7.8.0
 revision=1
 build_style=gnu-configure
 configure_args="--enable-shared --enable-static"
 short_desc="Semi-portable access to hardware provided atomic memory operations"
-maintainer="Orphaned <orphan@voidlinux.org>"
+maintainer="Ivan Maidanski <ivmai@mail.ru>"
 license="GPL-2.0-or-later, MIT"
 homepage="https://github.com/ivmai/libatomic_ops"
 distfiles="${homepage}/releases/download/v${version}/libatomic_ops-${version}.tar.gz"
-checksum=f0ab566e25fce08b560e1feab6a3db01db4a38e5bc687804334ef3920c549f3e
+checksum=15676e7674e11bda5a7e50a73f4d9e7d60452271b8acf6fd39a71fefdf89fa31
 
 post_install() {
-	vlicense doc/LICENSING.txt
+	vlicense LICENSE
 }
 
 libatomic_ops-devel_package() {

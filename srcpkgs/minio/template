@@ -1,13 +1,11 @@
 # Template file for 'minio'
 pkgname=minio
 version=2021.04.06
-revision=1
+revision=2
 _version="${version//./-}T23-11-00Z"
-wrksrc=${pkgname}-RELEASE.${_version}
 build_style=go
 go_import_path="github.com/minio/minio"
 conf_files="/etc/default/minio /etc/minio/config.json"
-hostmakedepends="git"
 short_desc="Object storage server compatible with Amazon S3"
 maintainer="Gerardo Di Iorio <arete74@gmail.com>"
 license="Apache-2.0"

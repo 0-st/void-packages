@@ -1,20 +1,20 @@
 # Template file for 'Signal-Desktop'
 pkgname=Signal-Desktop
-version=5.40.1
+version=6.16.0
 revision=1
-# Signal officially only supports x86_64 (also due to Electron)
-# discontinued Electron 32-bit support: https://www.electronjs.org/blog/linux-32bit-support
-# 32-bit is not supported https://github.com/signalapp/Signal-Desktop/issues/1661
+# Signal officially only supports x86_64 
+# x86_64-musl could potentially based on the Alpine port:
+# https://git.alpinelinux.org/aports/tree/testing/signal-desktop
 # armv7hf/arm64: https://github.com/signalapp/Signal-Desktop/issues/3410
 archs="x86_64"
 hostmakedepends="git git-lfs nodejs python3 tar yarn"
 depends="cairo gtk+3 libvips pango"
 short_desc="Signal Private Messenger for Linux"
-maintainer="Orphaned <orphan@voidlinux.org>"
+maintainer="anelki <akierig@fastmail.de>"
 license="AGPL-3.0-only"
 homepage="https://github.com/signalapp/Signal-Desktop"
 distfiles="https://github.com/signalapp/Signal-Desktop/archive/v${version}.tar.gz"
-checksum=d80d210554e0296d916f7e25d9a49afc58340ab03ef7a1e7ae21017e80e9de7b
+checksum=cfd68731007b41f72026a1cb32fb8f25c7131eb6e61edb0db4f9ebfd4878300c
 nostrip_files="signal-desktop"
 
 post_extract() {
@@ -50,7 +50,7 @@ do_install() {
 	vinstall ${FILESDIR}/signal.desktop 644 usr/share/applications/
 
 	vmkdir usr/share/icons/hicolor
-	for size in 16 32 48 128 256 1024; do
+	for size in 16 32 256; do
 		vinstall images/icon_${size}.png 644 usr/share/icons/hicolor/${size}x${size}/apps/ signal.png
 	done
 

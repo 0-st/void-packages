@@ -2,12 +2,11 @@
 pkgname=python-idna
 version=2.10
 revision=1
-wrksrc="idna-${version}"
 build_style=python2-module
 hostmakedepends="python-setuptools"
 depends="python"
 short_desc="Internationalized Domain Names in Applications (IDNA) for Python2"
-maintainer="Alessio Sergi <al3hex@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="BSD-3-Clause"
 homepage="https://github.com/kjd/idna"
 changelog="https://raw.githubusercontent.com/kjd/idna/master/HISTORY.rst"

@@ -37,9 +37,14 @@ export CGO_CFLAGS="$CFLAGS"
 export CGO_CPPFLAGS="$CPPFLAGS"
 export CGO_CXXFLAGS="$CXXFLAGS"
 export CGO_LDFLAGS="$LDFLAGS"
-export CGO_ENABLED=1
+export CGO_ENABLED="${CGO_ENABLED:-1}"
 export GO111MODULE=auto
 case "$XBPS_TARGET_MACHINE" in
 	*-musl) export GOCACHE="${XBPS_HOSTDIR}/gocache-muslc" ;;
 	*)	export GOCACHE="${XBPS_HOSTDIR}/gocache-glibc" ;;
+esac
+
+case "$XBPS_TARGET_MACHINE" in
+	# https://go.dev/cl/421935
+	i686*) export CGO_CFLAGS="$CGO_CFLAGS -fno-stack-protector" ;;
 esac

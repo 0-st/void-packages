@@ -16,7 +16,7 @@ do_build() {
 }
 
 do_check() {
-	if [ -z "$make_cmd" ] && [ -z "$make_check_target" ]; then 
+	if [ -z "$make_cmd" ] && [ -z "$make_check_target" ]; then
 		if make -q check 2>/dev/null; then
 			:
 		else
@@ -30,7 +30,7 @@ do_check() {
 	: ${make_cmd:=make}
 	: ${make_check_target:=check}
 
-	${make_cmd} ${make_check_args} ${make_check_target}
+	${make_check_pre} ${make_cmd} ${makejobs} ${make_check_args} ${make_check_target}
 }
 
 do_install() {

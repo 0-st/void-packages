@@ -1,8 +1,8 @@
 # Template file for 'btdu'
 pkgname=btdu
-version=0.3.1
+version=0.4.1
 revision=1
-# druntime does not implement ioctl on musl in dmd-2.098.0
+# fails to build on musl due to different argument types for ioctl
 # struct packing seems to differ on i686 archs and therefore d-btrfs fails
 archs=x86_64
 hostmakedepends="dmd dub"
@@ -12,8 +12,13 @@ maintainer="Siddhartha Menon <siddharthamenon+void@outlook.com>"
 license="GPL-2.0-only"
 homepage="https://github.com/CyberShadow/btdu"
 distfiles="https://github.com/CyberShadow/btdu/archive/v${version}.tar.gz"
-checksum=760b2f0d28920a78b7967dd34c429125135688a3aefc57ab3a92d07bc3ef10cb
+checksum=265c63ee82067f6b5dc44b47c9ec58be5e13c654f31035c60a7e375ffa4082c9
 nocross="dmd compilation fails on cross"
+
+pre_configure() {
+	vsed -e 's/dependency "ae" version="==0.0.3184"/dependency "ae" version="==0.0.3228"/g' -i dub.sdl
+	vsed -e 's/"ae": "0.0.3184"/"ae": "0.0.3228"/g' -i dub.selections.json
+}
 
 do_build() {
 	dub build -b release

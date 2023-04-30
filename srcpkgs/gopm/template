@@ -1,13 +1,12 @@
 # Template file for 'gopm'
 pkgname=gopm
 version=0.7.2.20150801
-revision=15
+revision=16
 _commit=4295c22189eb27deedc13fd33e05c1a4da07aa3d
-wrksrc="${pkgname}-${_commit}"
 build_style=go
 go_import_path="github.com/gpmgo/gopm"
 short_desc="Go Package Manager"
-maintainer="John Regan <john@jrjrtech.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="Apache-2.0"
 homepage="https://github.com/gpmgo/gopm"
 distfiles="https://github.com/gpmgo/gopm/archive/${_commit}.tar.gz"

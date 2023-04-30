@@ -1,52 +1,34 @@
 # Template file for 'maturin'
 pkgname=maturin
-version=0.12.12
+version=0.14.17
 revision=1
-build_style=cargo
-build_helper=qemu
-# Disable the 'rustls' feature, which leads to bad platform compatibility
-# The list of enabled features should be reconciled with each new release
-configure_args="--no-default-features --features log,upload,human-panic"
-hostmakedepends="python3-setuptools python3-tomli"
+build_style=python3-module
+build_helper="qemu rust"
+hostmakedepends="python3-setuptools-rust python3-tomli python3-wheel cargo"
 makedepends="openssl-devel"
 depends="python3-tomli"
 short_desc="Build and publish crates as python packages"
 maintainer="Andrew J. Hesford <ajh@sideband.org>"
 license="Apache-2.0, MIT"
 homepage="https://github.com/PyO3/maturin"
-# bump target-lexicon version if it changes in Cargo.lock
-distfiles="${homepage}/archive/v${version}.tar.gz
- https://github.com/bytecodealliance/target-lexicon/archive/v0.12.3.tar.gz>target-lexicon-${version}.tar.gz"
-checksum="0da8b649dc91278363d6a07fee26ea53b8f2d9cd06139034dea3a5506baf12a0
- 30ef841ec97532172726787ef9cac3b0cbf565dfdda4b6311e6414ffe63bef3e"
+distfiles="${homepage}/archive/v${version}.tar.gz"
+checksum=d47bd483c2748a64d245b4ee34d32d869a30bc7683f2603487dcd54ff08cf846
 # Tests use unstable features and fail to build
 make_check=no
 
-post_extract() {
-	mv ../target-lexicon* target-lexicon
-	echo "[patch.crates-io]" >> Cargo.toml
-	echo "target-lexicon = { path = './target-lexicon' }" >> Cargo.toml
-}
-
-post_patch() {
-	# setup.py is broken, just use it for the pure python part
-	vsed -e 's/cmdclass.*/packages=["maturin"],/' -i setup.py
-}
-
-post_build() {
-	# python package is pure; the cross environment is not relevant
-	python3 setup.py build
-
-	# Generate some completions
-	_matbin="target/${RUST_TARGET}/release/maturin"
-	vtargetrun "${_matbin}" completions zsh > maturin.zsh
-	vtargetrun "${_matbin}" completions fish > maturin.fish
-	vtargetrun "${_matbin}" completions bash > maturin.bash
-}
+if [ "$CROSS_BUILD" ]; then
+	makedepends+=" rust-std"
+fi
 
 post_install() {
 	vlicense license-mit LICENSE-MIT
 	python3 setup.py install --prefix=/usr --root=${DESTDIR}
+
+	# Generate and install some completions
+	local _matbin="${DESTDIR}/usr/bin/maturin"
+	vtargetrun "${_matbin}" completions zsh > maturin.zsh
+	vtargetrun "${_matbin}" completions fish > maturin.fish
+	vtargetrun "${_matbin}" completions bash > maturin.bash
 
 	vcompletion maturin.zsh zsh
 	vcompletion maturin.fish fish

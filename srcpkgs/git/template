@@ -1,6 +1,6 @@
 # Template file for 'git'
 pkgname=git
-version=2.36.0
+version=2.40.1
 revision=1
 hostmakedepends="asciidoc gettext perl pkg-config tk xmlto"
 makedepends="libglib-devel libcurl-devel libsecret-devel pcre2-devel tk-devel"
@@ -14,12 +14,13 @@ license="GPL-2.0-only"
 homepage="https://git-scm.com/"
 changelog="https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/${version}.txt"
 distfiles="https://www.kernel.org/pub/software/scm/git/git-${version}.tar.xz"
-checksum=af5ebfc1658464f5d0d45a2bfd884c935fb607a10cc021d95bc80778861cc1d3
+checksum=4893b8b98eefc9fdc4b0e7ca249e340004faa7804a433d17429e311e1fef21d2
 replaces="git-perl>=0"
 register_shell=/usr/bin/git-shell
 python_version=3
 
-subpackages="git-cvs git-svn gitk git-gui git-all git-libsecret git-netrc"
+subpackages="git-cvs git-svn gitk git-gui git-all git-libsecret git-netrc
+ git-scalar"
 
 do_configure() {
 	cat <<-EOF >config.mak
@@ -38,6 +39,9 @@ do_configure() {
 	GIT_PROVE_OPTS = $makejobs
 	# firstword (uname -m)
 	HOST_CPU = ${XBPS_TARGET_MACHINE%-musl}
+	# this flag will skip shipping unneeded symlinks
+	# those symlinks were kept for scripts written before 2010
+	SKIP_DASHED_BUILT_INS = Yes
 	EOF
 
 	if [ "$XBPS_TARGET_LIBC" = musl ]; then
@@ -51,8 +55,7 @@ do_configure() {
 }
 
 do_build() {
-	make ${makejobs}
-	make ${makejobs} -C Documentation man
+	make ${makejobs} all man
 	make ${makejobs} -C contrib/contacts all git-contacts.1
 	make ${makejobs} -C contrib/diff-highlight all
 	make ${makejobs} -C contrib/subtree all man
@@ -61,14 +64,18 @@ do_build() {
 }
 
 do_check() {
-	make test
+	if [ "$XBPS_ALLOW_CHROOT_BREAKOUT" ]; then
+		IKNOWWHATIAMDOING=YES make test ${makejobs}
+	else
+		make test ${makejobs}
+	fi
 	make -C contrib/diff-highlight test
 	make -C contrib/subtree test
 	make -C contrib/credential/netrc test
 }
 
 do_install() {
-	make DESTDIR=${DESTDIR} install install-doc
+	make DESTDIR=${DESTDIR} install install-man
 	vinstall contrib/completion/git-completion.bash 644 \
 		usr/share/bash-completion/completions git
 	vinstall contrib/completion/git-prompt.sh 644 usr/share/git
@@ -83,8 +90,18 @@ do_install() {
 	make -C contrib/credential/netrc DESTDIR=${DESTDIR} install
 }
 
+git-scalar_package() {
+	depends="git"
+	short_desc="Tool for managing large Git repositories"
+	pkg_install() {
+		vmove usr/bin/scalar
+		vmove usr/libexec/git-core/scalar
+		vmove usr/share/man/man1/scalar.1
+	}
+}
+
 git-cvs_package() {
-	depends="${sourcepkg}-${version}_${revision} cvs cvsps2 perl-DBD-SQLite"
+	depends="${sourcepkg}>=${version}_${revision} cvs cvsps2 perl-DBD-SQLite"
 	short_desc+=" - CVS support"
 	pkg_install() {
 		vmove usr/bin/git-cvsserver
@@ -99,7 +116,7 @@ git-cvs_package() {
 }
 
 git-svn_package() {
-	depends="${sourcepkg}-${version}_${revision} subversion-perl perl-Term-ReadKey"
+	depends="${sourcepkg}>=${version}_${revision} subversion-perl perl-Term-ReadKey"
 	short_desc+=" - Subversion support"
 	pkg_install() {
 		vmove "usr/share/perl5/vendor_perl/Git/SVN*"
@@ -109,7 +126,7 @@ git-svn_package() {
 }
 
 gitk_package() {
-	depends="git-${version}_${revision} tk"
+	depends="${sourcepkg}>=${version}_${revision} tk"
 	short_desc="Git repository browser"
 	license="GPL-2.0-or-later"
 	pkg_install() {
@@ -120,7 +137,7 @@ gitk_package() {
 }
 
 git-gui_package() {
-	depends="git-${version}_${revision} tk"
+	depends="${sourcepkg}>=${version}_${revision} tk"
 	short_desc+=" - GUI tool"
 	license="GPL-2.0-or-later"
 	pkg_install() {
@@ -140,7 +157,7 @@ git-all_package() {
 }
 
 git-libsecret_package() {
-	depends="git-${version}_${revision}"
+	depends="${sourcepkg}>=${version}_${revision}"
 	short_desc+=" - libsecret credential helper"
 	license="GPL-2.0-or-later"
 	pkg_install() {
@@ -149,7 +166,7 @@ git-libsecret_package() {
 }
 
 git-netrc_package() {
-	depends="git-${version}_${revision}"
+	depends="${sourcepkg}>=${version}_${revision}"
 	short_desc+=" - netrc credential helper"
 	pkg_install() {
 		vmove usr/libexec/git-core/git-credential-netrc

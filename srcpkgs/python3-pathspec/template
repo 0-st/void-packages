@@ -1,19 +1,15 @@
 # Template file for 'python3-pathspec'
 pkgname=python3-pathspec
-version=0.9.0
-revision=2
-wrksrc="pathspec-${version}"
-build_style=python3-module
-hostmakedepends="python3-setuptools"
+version=0.11.1
+revision=1
+build_style=python3-pep517
+hostmakedepends="python3-flit_core"
 depends="python3"
+checkdepends="python3-pytest"
 short_desc="Python3 utility library for pattern matching of file paths"
-maintainer="Orphaned <orphan@voidlinux.org>"
+maintainer="Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license="MPL-2.0"
-homepage="https://github.com/cpburnz/python-path-specification"
-changelog="https://raw.githubusercontent.com/cpburnz/python-path-specification/master/CHANGES.rst"
+homepage="https://github.com/cpburnz/python-pathspec"
+changelog="https://raw.githubusercontent.com/cpburnz/python-pathspec/master/CHANGES.rst"
 distfiles="${PYPI_SITE}/p/pathspec/pathspec-${version}.tar.gz"
-checksum=e564499435a2673d586f6b2130bb5b95f04a3ba06f81b8f895b651a3c76aabb1
-
-post_install() {
-	rm -r "${DESTDIR}/${py3_sitelib}/pathspec/tests"
-}
+checksum=2798de800fa92780e33acca925945e9a19a133b715067cf165b8866c15a31687

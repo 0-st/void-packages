@@ -1,13 +1,11 @@
 # Template file for 'obfs4proxy'
 pkgname=obfs4proxy
 version=0.0.13
-revision=1
+revision=2
 _pkgname=obfs4-obfs4proxy
-wrksrc="${_pkgname}-${version}"
 build_style=go
 go_import_path=gitlab.com/yawning/obfs4.git
 go_package="${go_import_path}/obfs4proxy"
-hostmakedepends="git"
 short_desc="Pluggable transport proxy for Tor, implementing obfs4"
 maintainer="Daniel Eyßer <daniel.eysser@gmail.com>"
 license="BSD-2-Clause"

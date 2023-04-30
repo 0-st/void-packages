@@ -1,20 +1,23 @@
 # Template file for 'python3-tqdm'
 pkgname=python3-tqdm
-version=4.48.2
-revision=4
-wrksrc="tqdm-${version}"
+version=4.65.0
+revision=1
 build_style=python3-module
-hostmakedepends="python3-setuptools"
-depends="python3-setuptools"
-short_desc="Fast, extensible progress bar for Python and CLI (Python3)"
-maintainer="bra1nwave <bra1nwave@protonmail.com>"
+hostmakedepends="python3-setuptools_scm"
+depends="python3"
+checkdepends="python3-pytest-xdist python3-pytest-asyncio
+ python3-pytest-timeout ${depends}"
+short_desc="Fast, extensible progress bar for Python and CLI"
+maintainer="Mohammed Anas <triallax@tutanota.com>"
 license="MPL-2.0, MIT"
 homepage="https://tqdm.github.io/"
-distfiles="https://github.com/tqdm/tqdm/archive/v${version}.tar.gz"
-checksum=91a61673103ae2d5a1b93672ff60455d689b58372c08b1a27e1a7def71dc05a3
+changelog="https://github.com/tqdm/tqdm/releases"
+distfiles="${PYPI_SITE}/t/tqdm/tqdm-${version}.tar.gz"
+checksum=1871fb68a86b8fb3b59ca4cdd3dcccbc7e6d613eeed31f4c332531977b89beb5
 conflicts="python-tqdm>=0"
 
 post_install() {
-	vman tqdm/tqdm.1 tqdm.1
+	vman tqdm/tqdm.1
+	vcompletion tqdm/completion.sh bash tqdm
 	vlicense LICENCE
 }

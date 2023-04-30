@@ -2,13 +2,12 @@
 pkgname=perl-User-Identity
 version=1.00
 revision=1
-wrksrc="${pkgname/perl-/}-${version}"
 build_style=perl-module
 hostmakedepends="perl"
 makedepends="${hostmakedepends}"
 depends="${makedepends}"
 short_desc="Perl module for abstracting information about a physical person"
-maintainer="Alessio Sergi <al3hex@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="Artistic-1.0-Perl, GPL-1.0-or-later"
 homepage="https://metacpan.org/release/User-Identity"
 distfiles="${CPAN_SITE}/User/${pkgname/perl-/}-${version}.tar.gz"

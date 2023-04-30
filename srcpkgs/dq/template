@@ -1,8 +1,7 @@
 # Template file for 'dq'
 pkgname=dq
-version=0.0.20220101
-revision=1
-wrksrc="${pkgname}-${version##*.}"
+version=0.0.20230101
+revision=2
 build_style=gnu-makefile
 make_dirs="
  /etc/dqcache/env 0755 root root
@@ -13,21 +12,17 @@ conf_files="
  /etc/dqcache/root/servers/*"
 short_desc="Recursive DNS/DNSCurve server and cli tool to debug DNS/DNSCurve"
 maintainer="Duncaen <duncaen@voidlinux.org>"
-license="Public Domain"
+license="CC0-1.0"
 homepage="https://mojzis.com/software/dq/"
 distfiles="https://github.com/janmojzis/dq/archive/${version##*.}.tar.gz"
-checksum=1ec16730569656f8a7c0ace5a6767dbb3aee243e923448cc2368e11b25e74ae7
-
-if [ "$CROSS_BUILD" ]; then
-	make_build_target="cross-compile"
-fi
+checksum=29d891e7ce7a25b6226a2784e8c5edc7885657e94f1e800e4fadcb3427e0f183
 
 system_accounts="_dqcache"
 
 post_extract() {
-	sed -e '/chown/d' -i make-install.sh
-	echo "/usr/bin" >conf-sbin
+	vsed -e 's;usr/sbin;usr/bin;g' -i Makefile
 }
+
 post_install() {
 	vsv dqcache
 

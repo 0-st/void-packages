@@ -34,8 +34,7 @@ check_pkg_arch() {
             esac
         done
         if [ -z "$nonegation" -a -n "$match" ] || [ -n "$nonegation" -a -z "$match" ]; then
-            msg_red "${pkgname}-${version}_${revision}: this package cannot be built for ${_arch}.\n"
-            exit 2
+            report_broken "${pkgname}-${version}_${revision}: this package cannot be built for ${_arch}.\n"
         fi
     fi
 }
@@ -106,7 +105,7 @@ remove_pkg_statedir() {
 remove_pkg() {
     local cross="$1" _destdir f
 
-    [ -z $pkgname ] && msg_error "unexistent package, aborting.\n"
+    [ -z $pkgname ] && msg_error "nonexistent package, aborting.\n"
 
     if [ -n "$cross" ]; then
         _destdir="$XBPS_DESTDIR/$XBPS_CROSS_TRIPLET"

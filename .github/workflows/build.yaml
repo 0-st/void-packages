@@ -10,22 +10,24 @@ on:
     paths:
       - 'srcpkgs/**'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   # Lint changed templates.
   xlint:
     name: Lint templates
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     env:
-      PATH: '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/usr/local/bin:/tmp/bin'
+      PATH: '/usr/libexec/chroot-git:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/usr/local/bin:/tmp/bin'
       XLINT: '1'
       LICENSE_LIST: common/travis/license.lst
 
     steps:
-      - uses: actions/checkout@v1
-        with:
-          fetch-depth: 200
-      - run: common/travis/fetch_upstream.sh
+      - name: Clone and checkout
+        uses: classabbyamp/treeless-checkout-action@v1
       - run: common/travis/changed_templates.sh
       - run: common/travis/fetch-xbps.sh
       - run: common/travis/fetch-xtools.sh
@@ -34,13 +36,13 @@ jobs:
   # Build changed packages.
   build:
     name: Build packages
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     if: "!contains(github.event.pull_request.title, '[ci skip]') && !contains(github.event.pull_request.body, '[ci skip]')"
 
     container:
-      image: 'ghcr.io/void-linux/xbps-src-masterdir:20210313rc01-${{ matrix.config.bootstrap }}'
+      image: 'ghcr.io/void-linux/xbps-src-masterdir:20230425RC01-${{ matrix.config.bootstrap }}'
       env:
-        PATH: '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/usr/local/bin:/tmp/bin'
+        PATH: '/usr/libexec/chroot-git:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/usr/local/bin:/tmp/bin'
         ARCH: '${{ matrix.config.arch }}'
         BOOTSTRAP: '${{ matrix.config.bootstrap }}'
         TEST: '${{ matrix.config.test }}'
@@ -61,20 +63,21 @@ jobs:
     steps:
       - name: Prepare container
         run: |
+          # switch to repo-ci mirror
+          mkdir -p /etc/xbps.d && cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
+          sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
           # Sync and upgrade once, assume error comes from xbps update
           xbps-install -Syu || xbps-install -yu xbps
           # Upgrade again (in case there was a xbps update)
           xbps-install -yu
 
-      - uses: actions/checkout@v1
-        with:
-          fetch-depth: 200
+      - name: Clone and checkout
+        uses: classabbyamp/treeless-checkout-action@v1
       - name: Create hostrepo and prepare masterdir
         run: |
          ln -s "$(pwd)" /hostrepo &&
          common/travis/set_mirror.sh &&
          common/travis/prepare.sh &&
-         common/travis/fetch_upstream.sh &&
          common/travis/fetch-xtools.sh
       - run: common/travis/changed_templates.sh
 
@@ -93,6 +96,22 @@ jobs:
           cd /
           "$here/common/travis/show_files.sh" "$BOOTSTRAP" "$ARCH"
           )
+
+      - name: Compare to previous
+        run: |
+          (
+          here="$(pwd)"
+          cd /
+          "$here/common/travis/xpkgdiff.sh" "$BOOTSTRAP" "$ARCH"
+          )
+
+      - name: Check file conflicts
+        if: matrix.config.arch == 'x86_64' # the arch indexed in xlocate
+        run: |
+          if [ -s /tmp/templates ]; then
+              xlocate -S &&
+              common/scripts/lint-conflicts $HOME/hostdir/binpkgs
+          fi
 
       - name: Verify repository state
         run: |

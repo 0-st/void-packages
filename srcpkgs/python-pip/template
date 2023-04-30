@@ -2,12 +2,11 @@
 pkgname=python-pip
 version=20.3.4
 revision=1
-wrksrc="pip-${version}"
 build_style=python2-module
 hostmakedepends="python-setuptools"
 depends="python-setuptools"
 short_desc="PyPA recommended tool for installing PyPI packages (Python2)"
-maintainer="Alessio Sergi <al3hex@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
 homepage="https://pip.pypa.io/"
 changelog="https://raw.githubusercontent.com/pypa/pip/master/NEWS.rst"

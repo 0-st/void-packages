@@ -1,19 +1,18 @@
 # Template file for 'tuxpaint'
 pkgname=tuxpaint
-version=0.9.27
+version=0.9.29
 revision=1
 build_style=gnu-makefile
-make_build_args="PREFIX=/usr"
 conf_files="/etc/tuxpaint/tuxpaint.conf"
 hostmakedepends="gettext gperf pkg-config ImageMagick"
-makedepends="SDL-devel SDL_image-devel SDL_mixer-devel SDL_ttf-devel cairo-devel
- SDL_gfx-devel fribidi-devel libimagequant-devel libpaper-devel librsvg-devel"
+makedepends="SDL2-devel SDL2_image-devel SDL2_mixer-devel SDL2_ttf-devel cairo-devel
+ SDL2_gfx-devel fribidi-devel libimagequant-devel libpaper-devel librsvg-devel"
 short_desc="Free, award-winning drawing program for children ages 3 to 12"
 maintainer="Piotr Wójcik <chocimier@tlen.pl>"
 license="GPL-2.0-or-later"
-homepage="http://www.tuxpaint.org/"
+homepage="https://www.tuxpaint.org/"
 distfiles="${SOURCEFORGE_SITE}/tuxpaint/${version}/tuxpaint-${version}.tar.gz"
-checksum=ab2b80e89df88228cd0ec0a6c90b49d543cb157aa38fb90cbd3a29f00140557a
+checksum=575403c54c7243e5b269a71fc1aa0738e3937764787e2acf89686bd77c5ae6ca
 replaces="tuxpaint-data>=0"
 python_version=2
 
@@ -23,4 +22,5 @@ pre_build() {
 
 post_install() {
 	vinstall src/tuxpaint.desktop 644 usr/share/applications
+	rm "${DESTDIR}/usr/share/doc/tuxpaint-0.9.29/en/tp_magic_example.so"
 }

@@ -1,18 +1,26 @@
 # Template file for 'qt6-websockets'
 pkgname=qt6-websockets
-version=6.2.2
+version=6.4.2
 revision=1
-wrksrc="qtwebsockets-everywhere-src-${version}"
 build_style=cmake
-configure_args="-DQT_HOST_PATH=/usr"
-hostmakedepends="perl qt6-base-devel qt6-declarative-devel"
+hostmakedepends="perl qt6-base qt6-declarative-host-tools"
 makedepends="qt6-base-devel qt6-declarative-devel"
+depends="qt6-plugin-tls-openssl"
+checkdepends="$depends"
 short_desc="Cross-platform application and UI framework - websockets"
 maintainer="John <me@johnnynator.dev>"
 license="(LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only) AND GPL-3.0-only with Qt-GPL-exception-1.0"
 homepage="https://qt.io/"
 distfiles="http://download.qt.io/official_releases/qt/${version%.*}/${version}/submodules/qtwebsockets-everywhere-src-${version}.tar.xz"
-checksum=8847a8bf0da6741b0bb22883c760037488c2d336fccc8cdb0b4e368f034c2076
+checksum=71cf857582db20c20103a56f67d51c33c4ab0b72448209c963d3b449a527c626
+
+pre_check() {
+	export QML2_IMPORT_PATH="$wrksrc/build/lib/qt6/qml"
+}
+
+post_install() {
+	rm -rf ${DESTDIR}/usr/tests
+}
 
 qt6-websockets-devel_package() {
 	depends="${sourcepkg}>=${version}_${revision} qt6-base-devel>=${version}_1"
@@ -20,8 +28,11 @@ qt6-websockets-devel_package() {
 	pkg_install() {
 		vmove usr/include
 		vmove usr/lib/cmake
+		vmove usr/lib/metatypes
+		vmove usr/lib/pkgconfig
 		vmove usr/lib/qt6/mkspecs
 		vmove "usr/lib/*.so"
 		vmove "usr/lib/*.prl"
+		vmove usr/share/qt6/modules
 	}
 }

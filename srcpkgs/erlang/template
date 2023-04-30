@@ -1,9 +1,7 @@
 # Template file for 'erlang'
 pkgname=erlang
-version=24.3.2
+version=25.3
 revision=1
-create_wrksrc=yes
-build_wrksrc="otp-OTP-${version}"
 build_style=gnu-configure
 make_install_target="install install-docs"
 hostmakedepends="autoconf libxslt perl tar"
@@ -14,12 +12,12 @@ license="Apache-2.0"
 homepage="http://www.erlang.org/"
 changelog="https://github.com/erlang/otp/releases"
 distfiles="https://github.com/erlang/otp/archive/OTP-${version}.tar.gz"
-checksum=cdc9cf788d28a492eb6b24881fbd06a0a5c785dc374ad415b3be1db96326583c
+checksum=f4fc2c5e1da56eb659003015ab80c42e50cef1129cca8c14457a522d1793498d
 subpackages="erlang-doc"
 
 if [ -z "$CROSS_BUILD" ]; then
-	configure_args+=" --with-wx-config=wx-config-3.0"
-	makedepends+=" wxWidgets-devel glu-devel"
+	configure_args+=" --with-wx-config=wx-config-gtk3"
+	makedepends+=" wxWidgets-gtk3-devel glu-devel"
 	subpackages+=" erlang-wx"
 fi
 
@@ -28,7 +26,6 @@ case "$XBPS_TARGET_MACHINE" in
 esac
 
 pre_configure() {
-	./otp_build autoconf
 	if [ "$CROSS_BUILD" ]; then
 		# Build the bootstrap compiler for the host platform.
 		env - PATH=/usr/bin:/usr/sbin ./configure --enable-bootstrap-only

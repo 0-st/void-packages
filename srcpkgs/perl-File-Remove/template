@@ -2,13 +2,12 @@
 pkgname=perl-File-Remove
 version=1.58
 revision=2
-wrksrc="${pkgname/perl-/}-${version}"
 build_style=perl-module
 hostmakedepends="perl-Module-Build"
 makedepends="perl"
 depends="${makedepends}"
 short_desc="Perl module to removes files and directories"
-maintainer="Alessio Sergi <al3hex@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 homepage="https://metacpan.org/release/File-Remove"
 license="Artistic-1.0-Perl, GPL-1.0-or-later"
 distfiles="${CPAN_SITE}/File/${pkgname/perl-/}-${version}.tar.gz"

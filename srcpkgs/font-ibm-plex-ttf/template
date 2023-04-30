@@ -1,15 +1,14 @@
 # Template file for 'font-ibm-plex-ttf'
 pkgname=font-ibm-plex-ttf
-version=6.0.0
+version=6.2.0
 revision=1
-wrksrc="plex-${version}"
 depends="font-util"
 short_desc="IBM’s typeface, IBM Plex (TTF variant)"
 maintainer="Felipe Nogueira <contato.fnog@gmail.com>"
 license="OFL-1.1"
 homepage="https://github.com/IBM/plex"
 distfiles="https://github.com/IBM/plex/archive/v${version}.tar.gz"
-checksum=e78cc68cb40ccca0318facade727a0deb32f73e931a2e31bb2fcaf8a6d386dff
+checksum=dc2f0dc440e568498c32226e199e9378b72379307f5ffaafd3c186f45c5c39df
 
 font_dirs="/usr/share/fonts/TTF"
 

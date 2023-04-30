@@ -1,6 +1,6 @@
 # Template file for 'rsyslog'
 pkgname=rsyslog
-version=8.2110.0
+version=8.2212.0
 revision=1
 build_style=gnu-configure
 configure_args="--sbindir=/usr/bin --enable-gnutls --enable-mysql
@@ -8,7 +8,8 @@ configure_args="--sbindir=/usr/bin --enable-gnutls --enable-mysql
  --enable-gssapi-krb5 --enable-mmsnmptrapd --enable-impstats --enable-omprog
  --enable-omstdout --enable-pmlastmsg --enable-pmcisconames --enable-pmsnare
  --enable-pmaixforwardedfrom --enable-omuxsock --disable-generate-man-pages
- --enable-elasticsearch --enable-testbench --disable-libsystemd"
+ --enable-elasticsearch --enable-testbench --disable-libsystemd
+ --enable-clickhouse"
 hostmakedepends="pkg-config postgresql-libs-devel"
 makedepends="gnutls-devel libcurl-devel libestr-devel libfastjson-devel
  liblogging-devel libmariadbclient-devel mit-krb5-devel postgresql-libs-devel
@@ -20,7 +21,7 @@ license="GPL-3.0-or-later, Apache-2.0"
 homepage="https://www.rsyslog.com"
 changelog="https://raw.githubusercontent.com/rsyslog/rsyslog/master/ChangeLog"
 distfiles="${homepage}/files/download/rsyslog/${pkgname}-${version}.tar.gz"
-checksum=3f904ec137ca6412e8273f7896d962ecb589f7d0c589bdf16b1709ec27e24f31
+checksum=53b59a872e3dc7384cdc149abe9744916776f7057d905f3df6722d2eb1b04f35
 conf_files="/etc/rsyslog.conf"
 make_dirs="/etc/rsyslog.d 0755 root root"
 lib32disabled=yes
@@ -28,6 +29,7 @@ disable_parallel_build=yes
 
 if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
 	makedepends+=" musl-legacy-compat"
+	make_check=extended  # some tests sporadically SIGSEGV
 fi
 
 pre_configure() {
@@ -40,6 +42,7 @@ pre_configure() {
 post_install() {
 	vsv rsyslogd
 	vconf ${FILESDIR}/rsyslog.conf
+	vinstall ${FILESDIR}/rsyslog.logrotate 644 etc/logrotate.d rsyslog
 }
 
 rsyslog-gssapi_package() {
@@ -84,5 +87,14 @@ rsyslog-elasticsearch_package() {
 	short_desc+=" - Elasticsearch add-on"
 	pkg_install() {
 		vmove usr/lib/rsyslog/omelasticsearch.so
+	}
+}
+
+rsyslog-clickhouse_package() {
+	lib32disabled=yes
+	depends="rsyslog"
+	short_desc+=" - ClickHouse add-on"
+	pkg_install() {
+		vmove usr/lib/rsyslog/omclickhouse.so
 	}
 }

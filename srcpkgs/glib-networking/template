@@ -1,11 +1,11 @@
 # Template file for 'glib-networking'
 pkgname=glib-networking
-version=2.72.0
+version=2.76.0
 revision=1
 build_style=meson
 configure_args="-Dinstalled_tests=false -Dgnutls=enabled -Dlibproxy=enabled
  -Dgnome_proxy=enabled"
-hostmakedepends="pkg-config ca-certificates gettext"
+hostmakedepends="pkg-config ca-certificates gettext glib"
 makedepends="gnutls-devel gsettings-desktop-schemas-devel libglib-devel libproxy-devel"
 depends="gsettings-desktop-schemas"
 checkdepends="glib"
@@ -13,8 +13,8 @@ short_desc="Network-related giomodules for glib"
 maintainer="Enno Boland <gottox@voidlinux.org>"
 license="LGPL-2.1-or-later"
 homepage="https://gitlab.gnome.org/GNOME/glib-networking/"
-#changelog="https://gitlab.gnome.org/GNOME/glib-networking/-/raw/master/NEWS"
-changelog="https://gitlab.gnome.org/GNOME/glib-networking/-/raw/glib-2-72/NEWS"
+changelog="https://gitlab.gnome.org/GNOME/glib-networking/-/raw/master/NEWS"
+#changelog="https://gitlab.gnome.org/GNOME/glib-networking/-/raw/glib-2-76/NEWS"
 distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=100aaebb369285041de52da422b6b716789d5e4d7549a3a71ba587b932e0823b
+checksum=149a05a179e629a538be25662aa324b499d7c4549c5151db5373e780a1bf1b9a
 lib32disabled=yes

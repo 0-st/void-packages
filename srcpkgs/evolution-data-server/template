@@ -1,26 +1,27 @@
 # Template file for 'evolution-data-server'
 pkgname=evolution-data-server
-version=3.42.3
-revision=1
+version=3.48.0
+revision=2
 build_style=cmake
 build_helper="gir qemu"
-configure_args="-DENABLE_UOA=OFF
- -DCMAKE_BUILD_TYPE=None -DSYSCONF_INSTALL_DIR=/etc
+configure_args=" -DSYSCONF_INSTALL_DIR=/etc
+ -DWITH_PHONENUMBER=ON -DENABLE_WEATHER=ON
  $(vopt_if gir '-DENABLE_INTROSPECTION=ON -DENABLE_VALA_BINDINGS=ON')"
-hostmakedepends="flex glib-devel gperf intltool pkg-config libglib-devel
+hostmakedepends="flex glib-devel gperf gettext pkg-config libglib-devel
  $(vopt_if gir vala)"
 makedepends="boost-devel libcanberra-devel libgdata-devel libical-devel
- libsecret-devel mit-krb5-devel webkit2gtk-devel libgweather-devel
- libsoup-devel $(vopt_if gir vala-devel)"
-depends="libgweather libsoup-gnome"
+ libsecret-devel mit-krb5-devel libwebkit2gtk41-devel libwebkitgtk60-devel
+ libsoup3-devel libphonenumber-devel $(vopt_if gir vala-devel) gtk4-devel
+ libgweather-devel"
 checkdepends="dbus"
 short_desc="Centralized access to appointments and contacts"
 maintainer="Enno Boland <gottox@voidlinux.org>"
 license="LGPL-2.1-only"
 homepage="https://wiki.gnome.org/Apps/Evolution"
-changelog="https://raw.githubusercontent.com/GNOME/evolution-data-server/gnome-41/NEWS"
-distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=6f5847a1234799073e9585db861c21381a09ed550dc0a2125f00ba5f90bd361d
+changelog="https://gitlab.gnome.org/GNOME/evolution-data-server/-/raw/gnome-44/NEWS"
+distfiles="${GNOME_SITE}/evolution-data-server/${version%.*}/evolution-data-server-${version}.tar.xz"
+checksum=0f25f73331edf53909be40f412b2a86939270327517616303f322de157083c35
+make_check=ci-skip # flaky in CI
 
 build_options="gir"
 build_options_default="gir"
@@ -33,14 +34,10 @@ pre_build() {
 	LDFLAGS+=" -Wl,--rpath-link=$wrksrc/build/src/private"
 }
 
-post_install() {
-	rm -rf ${DESTDIR}/usr/lib/systemd
-}
-
 evolution-data-server-devel_package() {
 	depends="sqlite-devel mit-krb5-devel nss-devel nspr-devel libical-devel
 		libgdata-devel>=0.15 libsecret-devel libglib-devel
-		libsoup-devel gtk+3-devel libxml2-devel
+		libsoup3-devel gtk4-devel libxml2-devel
 		${sourcepkg}>=${version}_${revision}"
 	short_desc+=" - development files"
 	pkg_install() {

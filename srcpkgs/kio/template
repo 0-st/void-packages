@@ -1,12 +1,12 @@
 # Template file for 'kio'
 pkgname=kio
-version=5.93.0
+version=5.105.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_DESIGNERPLUGIN=ON
  -DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson"
 hostmakedepends="kcoreaddons extra-cmake-modules kauth gettext
- qt5-host-tools qt5-qmake python kdoctools libxml2 kcoreaddons"
+ qt5-host-tools qt5-qmake kdoctools libxml2 kcoreaddons"
 makedepends="kdoctools-devel ksolid-devel kbookmarks-devel kjobwidgets-devel
  kwallet-devel acl-devel mit-krb5-devel libxslt-devel libxml2-devel"
 depends="desktop-file-utils"
@@ -16,7 +16,7 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.0-or-later"
 homepage="https://invent.kde.org/frameworks/kio"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=d290a4bcfb5ec9eb9047c84a7c420df831131b92ab6c9d28a3aa0eef9f5d4c44
+checksum=1f971115d3cc488973f74222c9ae3722ac630fa8c02c00d4ba22eb03ceb8677d
 
 do_check() {
 	: # Pain to get working in limited enviroment, excpects e.g. real disks

@@ -1,16 +1,19 @@
 # Template file for 'ddcutil'
 pkgname=ddcutil
-version=1.2.2
+version=1.4.1
 revision=1
 build_style=gnu-configure
 hostmakedepends="automake libtool pkg-config"
-makedepends="i2c-tools-devel libdrm-devel libgudev-devel libkmod-devel libusb-devel libXrandr-devel"
+makedepends="i2c-tools-devel libdrm-devel libgudev-devel libkmod-devel
+ libusb-devel libXrandr-devel"
+depends="i2c-tools"
 short_desc="Query and change monitor settings using DDC/CI and USB"
 maintainer="lemmi <lemmi@nerd2nerd.org>"
 license="GPL-2.0-or-later"
-homepage="http://www.ddcutil.com"
+homepage="https://www.ddcutil.com"
+changelog="https://www.ddcutil.com/release_notes/"
 distfiles="https://github.com/rockowitz/ddcutil/archive/v${version}.tar.gz"
-checksum=f6766a00b78decc0bff7345093afb444d60172967555276c93916d181287744e
+checksum=c591891a1d2d950315b9ef50598f66bdd9951a51828328542ec36a0db0cb9edb
 
 case "$XBPS_TARGET_MACHINE" in
 	*-musl) makedepends+=" libexecinfo-devel musl-legacy-compat"

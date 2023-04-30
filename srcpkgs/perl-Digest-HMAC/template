@@ -2,13 +2,12 @@
 pkgname=perl-Digest-HMAC
 version=1.04
 revision=1
-wrksrc="${pkgname/perl-/}-${version}"
 build_style=perl-module
 hostmakedepends="perl"
 makedepends="${hostmakedepends}"
 depends="${makedepends}"
 short_desc="Perl interface to HMAC message-digest algorithms"
-maintainer="Alessio Sergi <al3hex@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="Artistic-1.0-Perl, GPL-1.0-or-later"
 homepage="https://metacpan.org/release/Digest-HMAC"
 distfiles="${CPAN_SITE}/Digest/${pkgname/perl-/}-${version}.tar.gz"

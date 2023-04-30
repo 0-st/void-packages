@@ -1,5 +1,6 @@
 # Template file for 'jimtcl'
 pkgname=jimtcl
+# revbump openocd when jimtcl is updated
 version=0.81
 revision=1
 build_style=gnu-configure

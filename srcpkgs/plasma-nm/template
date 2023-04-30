@@ -1,11 +1,12 @@
 # Template file for 'plasma-nm'
 pkgname=plasma-nm
-version=5.24.4
+version=5.27.4
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF"
+configure_args="-DBUILD_TESTING=OFF -DKF5_HOST_TOOLING=/usr/lib/cmake"
 hostmakedepends="extra-cmake-modules mobile-broadband-provider-info pkg-config
- gettext qt5-qmake qt5-host-tools kcoreaddons"
+ gettext qt5-qmake qt5-host-tools kpackage-devel kconfig-devel
+ kcoreaddons-devel plasma-framework kcmutils-devel"
 makedepends="plasma-workspace-devel networkmanager-qt5-devel kdelibs4support-devel
  kdesignerplugin-devel qca-qt5-devel modemmanager-qt5-devel kdoctools-devel
  openconnect-devel ksolid-devel"
@@ -15,9 +16,4 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-or-later"
 homepage="https://invent.kde.org/plasma/plasma-nm"
 distfiles="${KDE_SITE}/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=086c28cfdaa6f4de785662ccd8123cd48b2a333fbaa2ca70b2a6d9dc3622ec2f
-
-if [ "$CROSS_BUILD" ]; then
-	hostmakedepends+=" kpackage-devel kconfig-devel kcoreaddons-devel plasma-framework"
-	configure_args+=" -DKF5_HOST_TOOLING=/usr/lib/cmake"
-fi
+checksum=2ee6bff818e5168062e1e4358851697e4397d8b666e4a58a4883489c1a51214b

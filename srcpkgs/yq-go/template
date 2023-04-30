@@ -1,8 +1,7 @@
 # Template file for 'yq-go'
 pkgname=yq-go
-version=4.24.5
-revision=1
-wrksrc="yq-${version}"
+version=4.33.1
+revision=2
 build_style=go
 go_import_path=github.com/mikefarah/yq/v4
 short_desc="Lightweight and portable command-line YAML processor written in go"
@@ -10,8 +9,8 @@ maintainer="Frank Steinborn <steinex@nognu.de>"
 license="MIT"
 homepage="https://github.com/mikefarah/yq"
 changelog="https://raw.githubusercontent.com/mikefarah/yq/master/release_notes.txt"
-distfiles="https://github.com/mikefarah/yq/archive/v${version}.tar.gz"
-checksum=8ffab12d2d527f0ac62823777201f8e5e78c9af5c754914274db2733da98c796
+distfiles="https://github.com/mikefarah/yq/archive/refs/tags/v${version}.tar.gz"
+checksum=c38b8210fb5a80ac88314fa346ea31f3dc9324cae9fe93cb334cacf909e09bc3
 
 do_check() {
 	go test -v

@@ -2,7 +2,6 @@
 pkgname=pam
 version=1.5.2
 revision=2
-wrksrc="Linux-PAM-$version"
 build_style=gnu-configure
 configure_args="
  --libdir=/usr/lib --sbindir=/usr/bin --docdir=/usr/share/doc/pam
@@ -12,7 +11,7 @@ hostmakedepends="gettext-devel pkg-config"
 makedepends="libfl-devel db-devel"
 # version of pam-base that doesn't include removed modules
 depends="pam-base>=0.4_1"
-checkdepends="${depends}"
+checkdepends="pam-base"
 conf_files="
 	/etc/environment
 	/etc/security/access.conf

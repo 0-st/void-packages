@@ -2,13 +2,12 @@
 pkgname=perl-Test-NoWarnings
 version=1.04
 revision=4
-wrksrc="${pkgname#*-}-${version}"
 build_style=perl-module
 hostmakedepends="perl"
 makedepends="${hostmakedepends}"
 depends="${hostmakedepends}"
 short_desc='Test::NoWarnings - Make sure you did not emit warnings while testing.'
-maintainer="Enguerrand de Rochefort <voidlinux@rochefort.de>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="LGPL-2.1-only"
 homepage="https://metacpan.org/release/Test-NoWarnings"
 distfiles="$CPAN_SITE/Test/Test-NoWarnings-${version}.tar.gz"
